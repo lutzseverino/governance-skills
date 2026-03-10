@@ -4,32 +4,49 @@
 
 Choose the smallest correct change.
 
-The correct scope is the narrowest set of files, owners, and contracts that must change to satisfy the request safely.
+The correct scope is the narrowest set of files, ownership levels, and contracts that must change to satisfy the request safely.
 
 ## Keep The Change Local By Default
 
-Prefer the current owner when:
+Prefer the current ownership level when:
 
-- the behavior belongs clearly to the touched owner
+- the behavior belongs clearly to the touched ownership level
 - the change corrects or clarifies existing behavior
-- the extracted logic is only used by one owner
+- the extracted logic is only used by one ownership level
 - broader reuse is speculative rather than present
 
 ## Widen Scope Only For Real Reasons
 
 Broader scope is justified when one or more of these are true:
 
-- the same change is required across multiple owners
+- the same change is required across multiple ownership levels
 - the extracted code clearly belongs to a broader owner that already exists
 - the current owner mixes responsibilities in a way that directly blocks a correct change
 - a public contract, schema, API, or integration boundary must change to satisfy the request
 
 ## Ownership Rules
 
-- Keep code with its nearest clear owner.
+- Interpret `owner` as the nearest existing ownership level in this precedence order:
+  1. the current function, method, or equivalent executable unit
+  2. the current file, class, module, or equivalent local code unit
+  3. the current package, feature, service, or equivalent local area
+  4. an existing broader shared area
+- Keep code with the nearest level in that order that already owns the responsibility.
+- After extracting a `boundary`, keep it at the nearest ownership level that already owns the responsibility.
+- Promote an extracted `boundary` into broader shared scope only when ownership is clearly broader and already lives at level 4.
 - Promote code into broader shared scope only when ownership is clearly broader than the current area.
 - If broader ownership seems correct but the right home is unclear from the repo structure, ask the user instead of guessing.
 - Do not create a new shared home only because multiple future uses seem possible.
+
+## Contract Surface Rules
+
+Treat public exports, interfaces, schemas, route shapes, event payloads, database contracts, and external integration boundaries as contract surfaces.
+
+- Keep a contract surface as narrow as the request allows.
+- Prefer changing an internal seam before widening a public contract.
+- If a contract surface must widen or change shape, include that in the scope explicitly rather than treating it as incidental fallout.
+- If the request implies a contract change but does not acknowledge its broader consequence, escalate before proceeding.
+- After approval, follow [Contract Change Policy](./contract-changes.md) instead of treating the approved change as an ordinary local edit.
 
 ## Mixed-Area Rule
 

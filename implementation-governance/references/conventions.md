@@ -8,7 +8,15 @@ This skill does not define framework-specific layout or language-specific style 
 
 ## What Counts As A Dominant Convention
 
-Treat a convention as dominant when it is clearly established in the local area you are changing, not merely present somewhere else in the repository.
+Choose conventions using this precedence order:
+
+1. current owner
+2. sibling files or the same local module, class, or package
+3. the surrounding feature, service, or local area
+4. broader repo-wide convention
+5. this skill's defaults
+
+Treat a convention as dominant when it is clearly established at the highest applicable level, not merely present somewhere else in the repository.
 
 Use these signals:
 
@@ -25,13 +33,14 @@ When clearly established in the touched area, preserve:
 - entrypoint or public surface shape
 - local validation placement
 - dependency acquisition patterns
+- side-effect placement and orchestration boundaries
 - error-handling and logging patterns
 
 ## Mixed Or Unclear Areas
 
 If the touched area is mixed or unclear:
 
-- preserve the current owner first
+- preserve the highest-precedence level that is still clear
 - avoid standardizing adjacent code that is outside the request
 - use this skill's defaults when no dominant local pattern exists
 - escalate when choosing one pattern would set a wider precedent
@@ -43,6 +52,8 @@ When the local area does not establish a clear convention:
 - keep the change local
 - prefer explicit names over clever ones
 - prefer narrow public surfaces
+- prefer keeping side effects near clear boundaries rather than scattering them across helpers
+- prefer pure local helpers or modules before introducing shared orchestration
 - prefer colocated validation when the repo already validates nearby code that way
 - avoid introducing a new repo-wide pattern through a narrow task
 

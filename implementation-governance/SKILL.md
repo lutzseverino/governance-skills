@@ -10,41 +10,47 @@ Make consistent implementation decisions without drifting into broad, unclear, o
 ## Workflow
 
 1. Identify what kind of change this is.
-Read [references/workflow.md](references/workflow.md) and [references/change-kinds.md](references/change-kinds.md) first to classify the work as a `direct fix`, `local refactor`, `boundary extraction`, `cross-cutting refactor`, or `new feature slice`.
+Read [references/workflow.md](references/workflow.md) and [references/change-kinds.md](references/change-kinds.md) first to classify the work with one `primary change kind` and any `secondary change kinds` that materially affect scope, extraction, or validation.
 
-2. Decide how wide the change should be.
+2. Decide how wide the change should be and whether a contract surface is affected.
 Use [references/scoping.md](references/scoping.md) to keep the change at the smallest correct scope, decide what stays with the current owner, and determine when broader ownership is actually justified.
+If the change alters a public export, interface, schema, route shape, event payload, database contract, or external integration boundary, also read [references/contract-changes.md](references/contract-changes.md).
 
 3. Decide what should stay inline and what should be extracted.
-Use [references/extraction.md](references/extraction.md) to choose between `inline`, `local helper`, `local module`, `owned boundary`, and `shared boundary`.
+Use [references/extraction.md](references/extraction.md) to choose between `inline`, `local helper`, `local module`, and `boundary`.
 
 4. Check local conventions before materializing the change.
 Use [references/conventions.md](references/conventions.md) to preserve dominant local conventions, handle mixed areas carefully, and avoid silently standardizing a wider area than the request requires.
 
 5. Decide how much validation the change needs.
-Use [references/validation.md](references/validation.md) to match verification depth to blast radius and change kind.
+Use [references/validation.md](references/validation.md) to match validation depth to blast radius and change kind.
 
 6. Escalate when the next correct step is not safe to guess.
 Use [references/escalation.md](references/escalation.md) when the change would alter public contracts, widen ownership, standardize a mixed area, or otherwise create lasting consequences beyond the immediate request.
 
 ## Working Rules
 
-- Choose exactly one change kind for the current task.
+- Choose one `primary change kind` for the current task.
+- Add `secondary change kinds` only when they materially affect scope, extraction, or validation.
 - Use the canonical change kinds consistently: `direct fix`, `local refactor`, `boundary extraction`, `cross-cutting refactor`, and `new feature slice`.
-- Use the canonical extraction outcomes consistently: `inline`, `local helper`, `local module`, `owned boundary`, and `shared boundary`.
+- Use the canonical extraction outcomes consistently: `inline`, `local helper`, `local module`, and `boundary`.
 - Prefer the smallest correct change.
 - Preserve the dominant convention in the touched area before considering wider normalization.
 - Shared abstractions must be earned by real reuse or clearly broader ownership.
-- Prefer a local extraction before promoting code into broader shared scope.
+- Prefer local ownership first after extraction before promoting code into broader shared scope.
+- Keep contract surfaces as narrow as the request allows.
+- Keep side effects at clear boundaries and prefer extracting pure local logic before sharing orchestration.
 - Use narrower framework or domain skills for technology-specific structure. Use this skill to govern change strategy, scope, extraction pressure, and validation depth.
 
 ## Output Expectations
 
 For a review, plan, or implementation proposal:
 
-- state the chosen change kind
+- state the `primary change kind`
+- state any `secondary change kinds` only if they materially affect the plan
 - state the intended scope
 - state the extraction outcome
+- explain any contract-surface handling when relevant
 - explain the convention decision
 - explain the planned validation depth
 - call out any escalation point or confirm that none is needed
@@ -52,9 +58,11 @@ For a review, plan, or implementation proposal:
 Use this response shape:
 
 ```text
-Change kind: ...
+Primary change kind: ...
+Secondary change kinds: ...
 Scope: ...
 Extraction outcome: ...
+Contract note: ...
 Convention decision: ...
 Validation: ...
 Escalation note: ...
@@ -68,6 +76,7 @@ Use these references directly as needed:
 - [references/workflow.md](references/workflow.md)
 - [references/change-kinds.md](references/change-kinds.md)
 - [references/scoping.md](references/scoping.md)
+- [references/contract-changes.md](references/contract-changes.md)
 - [references/extraction.md](references/extraction.md)
 - [references/conventions.md](references/conventions.md)
 - [references/validation.md](references/validation.md)

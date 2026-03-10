@@ -9,8 +9,10 @@ Escalate when the next correct step is wider, riskier, or less reversible than t
 Ask the user before proceeding when any of these are true:
 
 - the change would alter a public API, schema, or external contract
+- the change would require an explicitly breaking contract change or a staged migration
 - broader ownership seems correct but the right destination is unclear
 - the touched area is mixed and choosing one pattern would standardize a wider area
+- the change would introduce a new dependency or cross-layer dependency with broader architectural consequences
 - the change would trigger a destructive migration, irreversible data change, or broad rename
 - the requested scope appears too small for a safe fix and the wider scope has product or architectural consequences
 - high-risk behavior must change but credible validation is unavailable
