@@ -24,7 +24,7 @@ Use [Workflow](./workflow.md) as the operational entry point when making a decis
 - Scoping policy defines how far the change should reach, how ownership levels are interpreted, and when broader ownership is justified.
 - Contract change policy defines how an approved contract-affecting change should be carried out safely.
 - Extraction policy defines whether code should stay `inline`, become a `local helper`, move into a `local module`, or become a `boundary`.
-- Convention handling defines how to preserve dominant local patterns, dependency shapes, and side-effect placement without silently standardizing a wider area.
+- Convention handling defines how to preserve dominant local patterns, acceptable stack patterns, dependency shapes, and side-effect placement without silently standardizing a wider area.
 - Validation policy defines how much validation the change needs based on risk and blast radius.
 - Escalation policy defines when the next step should be confirmed instead of guessed.
 

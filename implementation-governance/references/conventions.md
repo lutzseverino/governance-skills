@@ -36,6 +36,25 @@ When clearly established in the touched area, preserve:
 - side-effect placement and orchestration boundaries
 - error-handling and logging patterns
 
+## Acceptable vs Materially Harmful Local Patterns
+
+Treat a local stack pattern as acceptable when it is clearly established in the touched area, supports the current change safely, and does not directly create correctness, ownership, or maintenance problems for the task at hand.
+
+Treat a local stack pattern as materially harmful when one or more of these are true:
+
+- it directly causes bugs or hidden behavior
+- it forces unclear ownership or responsibility mixing
+- it creates repeated churn, workaround code, or failed fixes in the same area
+- it blocks the requested change unless the surrounding structure changes
+
+If the local pattern is acceptable, align with it even when a different pattern would be cleaner in the abstract.
+
+If the local pattern is materially harmful:
+
+- do not silently introduce a new wider standard through a narrow task
+- keep the fix as local as possible when that resolves the immediate problem
+- escalate when correcting the pattern would widen scope, set precedent, or standardize a mixed area
+
 ## Mixed Or Unclear Areas
 
 If the touched area is mixed or unclear:
@@ -60,6 +79,7 @@ When the local area does not establish a clear convention:
 ## Convention Errors
 
 - following a distant convention instead of the touched area
+- replacing an acceptable local stack pattern just because another one is cleaner in the abstract
 - normalizing mixed code without being asked
 - treating one recent file as a repo-wide standard
 - changing conventions and behavior in the same step without acknowledging it

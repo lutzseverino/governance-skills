@@ -13,6 +13,7 @@ Decide whether the change should stay `inline`, become a `local helper`, move in
 
 4. Materialize the change using the dominant convention in the touched area.
 Preserve local naming, file placement, entrypoint, dependency, side-effect, and validation conventions when they are clearly established in the area you are changing.
+Do not replace an acceptable local stack pattern with a technically cleaner alternative unless the existing pattern is materially harmful, directly blocks the change, or the request explicitly includes standardization.
 
 5. Match validation depth to the blast radius.
 Meet the minimum validation floor for the change kind and blast radius, then add more coverage only when the risk requires it.
@@ -29,8 +30,9 @@ When in doubt, follow this default sequence:
 3. keep code `inline` unless clarity or ownership clearly improves with extraction
 4. keep extracted code at the nearest ownership level first
 5. preserve the local convention in the touched area
-6. meet the minimum relevant validation floor
-7. escalate only when the wider consequence is real and unclear
+6. keep an acceptable local stack pattern unless the task or the current harm clearly justifies breaking from it
+7. meet the minimum relevant validation floor
+8. escalate only when the wider consequence is real and unclear
 
 ## Common Failure Modes
 
@@ -40,6 +42,7 @@ When in doubt, follow this default sequence:
 - extracting code only to reduce file length or satisfy a style preference
 - widening a contract surface when an internal seam would suffice
 - sharing orchestration code before the underlying logic has a stable local shape
+- replacing an acceptable local stack pattern with a cleaner but disruptive one
 - standardizing a mixed area without being asked
 - changing behavior and calling it a refactor
 - skipping escalation when public contracts or broader ownership are affected

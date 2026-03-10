@@ -36,6 +36,7 @@ Use [references/escalation.md](references/escalation.md) when the change would a
 - Use the canonical extraction outcomes consistently: `inline`, `local helper`, `local module`, and `boundary`.
 - Prefer the smallest correct change.
 - Preserve the dominant convention in the touched area before considering wider normalization.
+- Preserve acceptable local stack patterns before introducing a technically cleaner alternative.
 - Shared abstractions must be earned by real reuse or clearly broader ownership.
 - Prefer local ownership first after extraction before promoting code into broader shared scope.
 - Keep contract surfaces as narrow as the request allows.
