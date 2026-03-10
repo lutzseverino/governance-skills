@@ -73,8 +73,7 @@ Use these signals to support the extraction choice:
 
 - prefer `inline` when one render path or one small conditional remains easy to scan in the current owner
 - prefer `local helper` when one named subsection accumulates repeated markup, multiple conditional branches, or several related handlers inside the current owner
-- prefer `component boundary` when the extracted UI needs an explicit public prop contract, multiple owners, or more than one owned support file
-- prefer `component boundary` when the extracted UI has a stable reusable UI contract and multiple owners
+- prefer `component boundary` when the extracted UI has an explicit public prop contract, a stable reusable UI contract, and multiple owners
 - prefer another boundary kind when the reusable value is behavior, infrastructure, or support for another owner rather than a reusable UI contract
 
 Treat file length, statement count, and method count as supporting signals only. Do not use them as standalone reasons to extract.
