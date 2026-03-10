@@ -14,6 +14,8 @@ Boundary-owned files stay with that boundary unless broader ownership or an esta
 
 For this policy, the `local owner` is the nearest folder, feature area, or route area that already owns the boundary. A reusable `component boundary` counts as outside its local owner when files outside that local owner import it directly.
 
+A local owner should usually present one reusable packaging style. Treat a flat reusable component area as an area-level convention, not as an ad hoc per-component choice.
+
 ## Table Of Contents
 
 - [Reusable Component Boundaries](#reusable-component-boundaries)
@@ -46,6 +48,14 @@ ComponentName/
 ```
 
 Use a flatter reusable component shape only when an established repo convention in that area clearly uses flat reusable components and ownership remains obvious.
+
+Do not treat mixed sibling shapes as the steady-state default for one local owner. If an area is intentionally flat, keep reusable boundaries in that area flat unless a richer boundary is clearly separated into its own subarea. If an area is folder-based, keep reusable boundaries folder-based unless the local owner explicitly designates a thin wrapper or primitive exception.
+
+Treat mixed sibling shapes within one local owner as acceptable only when they reflect:
+
+- an explicit migration in progress
+- a clearly separated subarea such as primitives or vendor-aligned thin wrappers
+- a local owner whose convention is already stable and intentionally mixed
 
 ### Private Local Render Helpers
 
@@ -136,6 +146,7 @@ For standalone hook files:
 
 - Reusable component folder with a narrow local API as the default packaging
 - Flatter reusable component packaging only when an established repo convention clearly governs that area
+- One reusable packaging style per local owner as the default expectation
 - Local helper file scoped under the owning component
 - Single-file primitive in a designated primitives area
 - Focused hook file or small folder for reusable headless behavior
@@ -145,6 +156,7 @@ For standalone hook files:
 ## Forbidden Patterns
 
 - Reusable component boundary exposed as an unowned loose file outside the primitive-ui exception
+- Ad hoc mixing of flat reusable component files and folder-packaged reusable components under one local owner without a clear area boundary or migration reason
 - Component folders filled with generic dumping-ground files
 - Shared `utils` modules created before repeated use or broader ownership exists
 - Exporting private helper subcomponents as if they were reusable API
@@ -153,9 +165,9 @@ For standalone hook files:
 
 ## Tradeoffs
 
-This policy values predictable ownership over maximal uniformity.
+This policy values predictable ownership and area-level consistency over maximal per-component flexibility.
 
-It deliberately allows one exception for UI primitives because strict symmetry would add structure without adding meaning.
+It deliberately allows exceptions for UI primitives and intentionally flat wrapper areas because strict symmetry would sometimes add structure without adding meaning.
 
 ## Related
 

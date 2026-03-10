@@ -35,6 +35,7 @@ Read [references/packaging.md](references/packaging.md) and [references/ownershi
 - Prefer local scope first. Shared abstractions must be earned by reuse or broader ownership.
 - Prefer the smallest boundary that improves clarity.
 - Do not treat same-owner support files on their own as evidence that a new `component boundary` is required.
+- Treat flat reusable packaging as an area-level convention, not as a per-component choice inside one local owner.
 - Prefer boundary-prefixed filenames for extracted support files so IDE and search discovery remain obvious.
 - Adapt filesystem examples to the repo you are in. Do not assume every project uses the same folder names.
 
