@@ -16,7 +16,7 @@ Use the canonical role terms consistently: `presentational`, `interactive`, and 
 
 ## Roles
 
-### presentational
+### `presentational`
 
 #### Purpose
 
@@ -65,7 +65,7 @@ A badge, card, row, field wrapper, or read-only display component that receives 
 - [ ] Can the component be understood from its props and rendered output?
 - [ ] Would removing the UI leave no important business behavior behind?
 
-### interactive
+### `interactive`
 
 #### Purpose
 
@@ -126,7 +126,7 @@ Choose the headless pattern without an interactive component shell only when the
 - [ ] Is the interaction behavior part of the component's reusable contract?
 - [ ] Would the component still be understandable outside one feature workflow?
 
-### container
+### `container`
 
 #### Purpose
 

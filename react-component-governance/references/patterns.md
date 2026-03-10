@@ -6,13 +6,13 @@ Collect optional component patterns so contributors can add composition or API p
 
 ## Table Of Contents
 
-- [Compound Component](#compound-component)
-- [Headless Hook Plus UI Shell](#headless-hook-plus-ui-shell)
-- [Slot-Based Or Polymorphic Component](#slot-based-or-polymorphic-component)
+- [compound](#compound)
+- [headless hook plus UI shell](#headless-hook-plus-ui-shell)
+- [slot-based or polymorphic](#slot-based-or-polymorphic)
 
 ## Patterns
 
-### Compound Component
+### `compound`
 
 #### Purpose
 
@@ -61,7 +61,7 @@ A `Tabs` API with `Tabs.List`, `Tabs.Trigger`, and `Tabs.Content`, or a form fie
 - [ ] Is composition itself the reason this pattern is needed?
 - [ ] Does the shared contract express real semantics instead of incidental implementation details?
 
-### Headless Hook Plus UI Shell
+### `headless hook plus UI shell`
 
 #### Purpose
 
@@ -115,7 +115,7 @@ The pattern can be combined with:
 - [ ] Would the behavior still make sense with a different visual shell?
 - [ ] Does the hook expose a coherent contract instead of implementation fragments?
 
-### Slot-Based Or Polymorphic Component
+### `slot-based or polymorphic`
 
 #### Purpose
 
