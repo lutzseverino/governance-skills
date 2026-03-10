@@ -36,22 +36,22 @@ For those outcomes, keep the boundary kind explicit and skip primary component r
 
 Choose one primary role for each extracted component boundary:
 
-- `Presentational Component`
+- `presentational`
   Render UI from explicit inputs while staying centered on display concerns.
-- `Interactive Component`
+- `interactive`
   Own meaningful local interaction behavior inside a reusable UI boundary.
-- `Container Component`
+- `container`
   Assemble a feature workflow at one explicit composition boundary.
 
 ## Optional Patterns
 
 A component may use one or more of these patterns when they strengthen the chosen primary role:
 
-- `Compound Component`
+- `compound`
   Expose a coordinated API through multiple related subcomponents.
-- `Headless Hook Plus UI Shell`
+- `headless hook plus UI shell`
   Separate reusable interaction logic from rendering.
-- `Slot-Based Or Polymorphic Component`
+- `slot-based or polymorphic`
   Preserve a stable responsibility while allowing controlled rendering flexibility.
 
 ## Forbidden Classifications
@@ -72,9 +72,9 @@ A component may use one or more of these patterns when they strengthen the chose
 
 When more than one role feels plausible, choose the role that matches the component's main value:
 
-- choose `Presentational Component` when the main value is rendering explicit inputs and any local state is only incidental UI behavior
-- choose `Interactive Component` when the main value is a reusable UI contract whose interaction behavior is part of the boundary itself
-- choose `Container Component` when the main value is assembling a feature workflow across narrower components, hooks, or use cases
+- choose `presentational` when the main value is rendering explicit inputs and any local state is only incidental UI behavior
+- choose `interactive` when the main value is a reusable UI contract whose interaction behavior is part of the boundary itself
+- choose `container` when the main value is assembling a feature workflow across narrower components, hooks, or use cases
 
 Use these comparisons when the choice still feels close:
 

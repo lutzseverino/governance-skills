@@ -45,7 +45,7 @@ Domain-scoped or app-scoped utilities follow the same rule. Promote them only wh
 
 ### Exception Documentation
 
-Do not require explanatory comments for routine files such as `types.ts` or `utils.ts`.
+Do not require explanatory comments for routine boundary-owned support files that already follow packaging policy, such as `ComponentName.types.ts` or `ComponentName.utils.ts`.
 
 Require explicit rationale only for real standard deviations, such as:
 

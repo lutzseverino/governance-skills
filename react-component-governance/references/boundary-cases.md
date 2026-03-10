@@ -18,7 +18,7 @@ Use this guidance:
 - colocate them with the narrowest owner that needs the provided context
 - avoid promoting providers into shared space unless multiple owners truly depend on the same stable context contract
 
-Provider components are rarely presentational. They often behave more like container boundaries or infrastructure wrappers, depending on scope.
+When a provider has visible UI shape, treat that shell as incidental unless its main value is truly reusable UI rather than provider or infrastructure wiring.
 
 ## Screens And Pages
 

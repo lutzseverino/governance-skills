@@ -6,15 +6,17 @@ Collect the primary component roles so contributors can classify a component by 
 
 Use this reference only when the extracted boundary is a `component boundary`.
 
+Use the canonical role terms consistently: `presentational`, `interactive`, and `container`.
+
 ## Table Of Contents
 
-- [Presentational Component](#presentational-component)
-- [Interactive Component](#interactive-component)
-- [Container Component](#container-component)
+- [presentational](#presentational)
+- [interactive](#interactive)
+- [container](#container)
 
 ## Roles
 
-### Presentational Component
+### presentational
 
 #### Purpose
 
@@ -63,7 +65,7 @@ A badge, card, row, field wrapper, or read-only display component that receives 
 - [ ] Can the component be understood from its props and rendered output?
 - [ ] Would removing the UI leave no important business behavior behind?
 
-### Interactive Component
+### interactive
 
 #### Purpose
 
@@ -109,7 +111,7 @@ A dropdown, accordion, date input, autocomplete shell, or disclosure component t
 
 #### Relationship To Headless Behavior
 
-`Interactive Component` is a primary role. `Headless Hook Plus UI Shell` is an optional pattern.
+`interactive` is a primary role. `headless hook plus UI shell` is an optional pattern.
 
 An interactive component may use the headless pattern when:
 
@@ -124,7 +126,7 @@ Choose the headless pattern without an interactive component shell only when the
 - [ ] Is the interaction behavior part of the component's reusable contract?
 - [ ] Would the component still be understandable outside one feature workflow?
 
-### Container Component
+### container
 
 #### Purpose
 

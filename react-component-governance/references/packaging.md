@@ -10,11 +10,13 @@ Packaging rules should reveal ownership, public API boundaries, and expected reu
 
 Packaging is independent of component role. A presentational component and a compound component may use the same packaging.
 
-Boundary-owned files stay with the owned boundary unless broader ownership or an established repo convention clearly requires otherwise.
+Boundary-owned files stay with that boundary unless broader ownership or an established repo convention clearly requires otherwise.
+
+For this policy, the `local owner` is the nearest folder, feature area, or route area that already owns the boundary. A reusable `component boundary` counts as outside its local owner when files outside that local owner import it directly.
 
 ## Table Of Contents
 
-- [Public Reusable Components](#public-reusable-components)
+- [Reusable Component Boundaries](#reusable-component-boundaries)
 - [Private Local Render Helpers](#private-local-render-helpers)
 - [UI Primitives](#ui-primitives)
 - [Headless Behavior Boundaries](#headless-behavior-boundaries)
@@ -29,15 +31,9 @@ Boundary-owned files stay with the owned boundary unless broader ownership or an
 
 ## Policy
 
-### Public Reusable Components
+### Reusable Component Boundaries
 
-A `public component boundary` uses its own folder by default.
-
-A `public component boundary` is one that:
-
-- is imported directly outside its immediate owner
-- represents a named UI boundary in the application
-- exposes a real public component boundary in the current codebase
+A reusable `component boundary` uses its own folder by default when it is imported directly outside its local owner.
 
 Expected folder shape:
 
@@ -49,7 +45,7 @@ ComponentName/
   index.ts
 ```
 
-Use a flatter public component shape only when an established repo convention in that area clearly uses flat public components and ownership remains obvious.
+Use a flatter reusable component shape only when an established repo convention in that area clearly uses flat reusable components and ownership remains obvious.
 
 ### Private Local Render Helpers
 
@@ -92,7 +88,7 @@ This general placement rule applies to types, utils, hooks, private subcomponent
 
 Keep support files inline by default. Extract them only when the rules below justify it.
 
-If a public `component boundary` owns two or more extracted support files, keep the folder shape even in areas that sometimes allow flat public components.
+If a reusable `component boundary` imported outside its local owner owns two or more extracted support files, keep the folder shape even in areas that sometimes allow flat reusable components.
 
 When extracted, prefer boundary-prefixed filenames so IDE search and filename discovery remain obvious in large codebases.
 
@@ -112,7 +108,7 @@ Use `ComponentName.hooks.ts` or another focused prefixed hook file when hook log
 
 Do not move logic into shared utility modules until reuse or broader ownership justifies it.
 
-If tests or stories exist, colocate them with the owned boundary unless an established repo convention clearly places them elsewhere. Do not promote a boundary into broader scope only to host tests or stories.
+If tests or stories exist, colocate them with the boundary unless an established repo convention clearly places them elsewhere. Do not promote a boundary into broader scope only to host tests or stories.
 
 ## File Naming Convention
 
@@ -138,17 +134,17 @@ For standalone hook files:
 
 ## Allowed Patterns
 
-- Public component folder with a narrow local API as the default packaging
-- Flatter public packaging only when an established repo convention clearly governs that area
+- Reusable component folder with a narrow local API as the default packaging
+- Flatter reusable component packaging only when an established repo convention clearly governs that area
 - Local helper file scoped under the owning component
 - Single-file primitive in a designated primitives area
 - Focused hook file or small folder for reusable headless behavior
 - Boundary-prefixed support filenames for extracted files inside a boundary folder
-- Colocated tests or stories for the owned boundary when the repo convention allows them
+- Colocated tests or stories for the boundary when the repo convention allows them
 
 ## Forbidden Patterns
 
-- Public reusable component exposed as an unowned loose file outside the primitive-ui exception
+- Reusable component boundary exposed as an unowned loose file outside the primitive-ui exception
 - Component folders filled with generic dumping-ground files
 - Shared `utils` modules created before repeated use or broader ownership exists
 - Exporting private helper subcomponents as if they were reusable API
