@@ -6,7 +6,7 @@
 Classify the task with one `primary change kind`: `direct fix`, `local refactor`, `boundary extraction`, `cross-cutting refactor`, or `new feature slice`. Add `secondary change kinds` only when they materially change scope, extraction, or validation.
 
 2. Choose the smallest correct scope.
-Decide what must change to satisfy the request and what should remain untouched. Do not widen the change just because nearby code could also be improved. Make any contract surface touched by the change explicit and apply the contract-change policy when one is affected.
+Decide what must change to satisfy the request and what should remain untouched. Do not widen the change just because nearby code could also be improved. Make any contract surface touched by the change explicit. If the change affects a contract surface, escalate or confirm that broader consequence before applying the contract-change policy.
 
 3. Choose the extraction outcome only after the scope is clear.
 Decide whether the change should stay `inline`, become a `local helper`, move into a `local module`, or become a `boundary`. After extraction, keep the boundary at the nearest ownership level first. Prefer extracting pure local logic before sharing code that carries side effects or orchestration.
