@@ -1,6 +1,6 @@
 <div align="center">
     <h1 align="center">Governance Skills</h1>
-    <p>Opinionated governance skills for implementation decisions and React component architecture.</p>
+    <p>Opinionated governance skills for disciplined software change and architecture decisions.</p>
     <p>
         <img alt="skills" src="https://img.shields.io/badge/skills-2-0f172a">
         <a href="https://github.com/lutzseverino/governance-skills/blob/main/LICENSE">
@@ -14,13 +14,17 @@
 
 ## Included Skills
 
-### `implementation-governance`
+### [`implementation-governance`](./implementation-governance/)
 
 Opinionated implementation guidance for code changes across projects and languages. Use it to decide change kind, scope, extraction, ownership, convention handling, escalation, and validation depth.
 
-### `react-component-governance`
+Entry points: [SKILL.md](./implementation-governance/SKILL.md), [overview](./implementation-governance/references/overview.md)
+
+### [`react-component-governance`](./react-component-governance/)
 
 Opinionated React component architecture guidance for extraction, classification, packaging, ownership, and boundary cases.
+
+Entry points: [SKILL.md](./react-component-governance/SKILL.md), [overview](./react-component-governance/references/overview.md)
 
 ## Repository Layout
 
