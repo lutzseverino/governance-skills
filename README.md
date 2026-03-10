@@ -18,11 +18,29 @@
 
 Opinionated implementation guidance for code changes across projects and languages. Use it to decide change kind, scope, extraction, ownership, convention handling, escalation, and validation depth.
 
+<p>
+    <a href="https://skills.sh/lutzseverino/governance-skills/implementation-governance">
+        <img alt="skills.sh implementation-governance" src="https://img.shields.io/badge/skills.sh-listed-0f172a">
+    </a>
+    <a href="https://agentskill.sh/@lutzseverino/implementation-governance">
+        <img alt="agentskill.sh implementation-governance" src="https://img.shields.io/badge/agentskill.sh-listed-1f2937">
+    </a>
+</p>
+
 Entry points: [SKILL.md](./implementation-governance/SKILL.md), [overview](./implementation-governance/references/overview.md)
 
 ### [`react-component-governance`](./react-component-governance/)
 
 Opinionated React component architecture guidance for extraction, classification, packaging, ownership, and boundary cases.
+
+<p>
+    <a href="https://skills.sh/lutzseverino/governance-skills/react-component-governance">
+        <img alt="skills.sh react-component-governance" src="https://img.shields.io/badge/skills.sh-listed-0f172a">
+    </a>
+    <a href="https://agentskill.sh/@lutzseverino/react-component-governance">
+        <img alt="agentskill.sh react-component-governance" src="https://img.shields.io/badge/agentskill.sh-listed-1f2937">
+    </a>
+</p>
 
 Entry points: [SKILL.md](./react-component-governance/SKILL.md), [overview](./react-component-governance/references/overview.md)
 
