@@ -14,7 +14,7 @@ Read [references/workflow.md](references/workflow.md) and [references/change-kin
 
 2. Decide how wide the change should be and whether a contract surface is affected.
 Use [references/scoping.md](references/scoping.md) to keep the change at the smallest correct scope, decide what stays with the current owner, and determine when broader ownership is actually justified.
-If the change alters a public export, interface, schema, route shape, event payload, database contract, or external integration boundary, also read [references/contract-changes.md](references/contract-changes.md).
+If the change alters a public export, interface, schema, route shape, event payload, database contract, or external integration boundary, read [references/escalation.md](references/escalation.md) first. Read [references/contract-changes.md](references/contract-changes.md) only after that contract-affecting change is confirmed.
 
 3. Decide what should stay inline and what should be extracted.
 Use [references/extraction.md](references/extraction.md) to choose between `inline`, `local helper`, `local module`, and `boundary`.

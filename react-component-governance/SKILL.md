@@ -7,6 +7,8 @@ description: Opinionated React component architecture guidance for React project
 
 Make consistent React component architecture decisions without drifting into ad hoc local conventions.
 
+Use [$implementation-governance](../implementation-governance/SKILL.md) alongside this skill when the task also needs change-kind, scope, validation, contract-change, or escalation decisions beyond React boundary structure.
+
 ## Workflow
 
 1. Decide whether a meaningful boundary should exist at all.
@@ -32,6 +34,7 @@ Read [references/boundary-cases.md](references/boundary-cases.md) for providers,
 - Treat patterns as optional modifiers, not as replacements for responsibility.
 - Prefer local scope first. Shared abstractions must be earned by reuse or broader ownership.
 - Prefer the smallest boundary that improves clarity.
+- Do not treat same-owner support files on their own as evidence that a new `component boundary` is required.
 - Prefer boundary-prefixed filenames for extracted support files so IDE and search discovery remain obvious.
 - Adapt filesystem examples to the repo you are in. Do not assume every project uses the same folder names.
 

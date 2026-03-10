@@ -39,7 +39,9 @@ Choose a `component boundary` when:
 - the UI boundary represents a named concept used by multiple owners
 - the boundary has a stable responsibility and a clear API
 - the extraction improves both readability and ownership clarity
-- the extracted boundary needs its own explicit prop contract, exported types, or owned support files
+- the extracted boundary needs its own explicit prop contract and a real reusable UI contract
+
+Owned support files such as `ComponentName.types.ts`, `ComponentName.utils.ts`, or `ComponentName.hooks.ts` do not by themselves justify a new `component boundary`. If those files stay owned by the current boundary, keep the extraction local and let packaging rules decide the file split.
 
 ### Choose Another Boundary Kind Instead Of A Component
 
@@ -72,6 +74,7 @@ Use these signals to support the extraction choice:
 - prefer `inline` when one render path or one small conditional remains easy to scan in the current owner
 - prefer `local helper` when one named subsection accumulates repeated markup, multiple conditional branches, or several related handlers inside the current owner
 - prefer `component boundary` when the extracted UI needs an explicit public prop contract, multiple owners, or more than one owned support file
+- prefer `component boundary` when the extracted UI has a stable reusable UI contract and multiple owners
 - prefer another boundary kind when the reusable value is behavior, infrastructure, or support for another owner rather than a reusable UI contract
 
 Treat file length, statement count, and method count as supporting signals only. Do not use them as standalone reasons to extract.
@@ -80,6 +83,7 @@ Treat file length, statement count, and method count as supporting signals only.
 
 - keeping a small piece of markup inline until a named boundary becomes clear
 - extracting a local helper before promoting it into public reusable space
+- extracting boundary-owned support files while keeping one existing boundary
 - promoting a component boundary after real reuse or stable architectural ownership emerges
 - extracting reusable headless behavior when several UI shells need the same contract
 - keeping provider or infrastructure wiring out of ordinary component classification when that is its real responsibility
