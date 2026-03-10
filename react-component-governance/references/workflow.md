@@ -15,18 +15,18 @@ Use one of these:
 - `provider/infrastructure boundary`
 - `support boundary`
 
-4. Add optional patterns only when they strengthen the chosen role.
+4. Check boundary cases before finalizing downstream decisions.
+Use special guidance for providers, pages, form coordinators, and loading or error shells before finalizing classification, packaging, or ownership.
+
+5. Add optional patterns only when they strengthen the chosen role.
 Patterns such as `compound`, `headless hook plus UI shell`, and `slot-based or polymorphic` are modifiers, not replacements for responsibility.
 
-5. Decide packaging.
+6. Decide packaging.
 Make the public API boundary and local file ownership obvious.
 
-6. Decide ownership.
+7. Decide ownership.
 Keep code in the narrowest scope that fully owns its reason to change.
 If a broader owner is appropriate but the correct broader owner is not clear from the repo structure, ask the user before promoting the boundary.
-
-7. Check boundary cases.
-Use special guidance for providers, pages, form coordinators, and loading or error shells.
 
 ## Decision Outcome Rule
 

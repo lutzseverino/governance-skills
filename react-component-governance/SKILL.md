@@ -18,14 +18,14 @@ Read [references/workflow.md](references/workflow.md) and [references/extraction
 If the result is a `component boundary`, read [references/classification.md](references/classification.md) to classify it as `presentational`, `interactive`, or `container`.
 If the result is a `headless behavior boundary`, `provider/infrastructure boundary`, or `support boundary`, keep that boundary kind explicit and do not force a component role onto it.
 
-3. Add optional patterns only when they strengthen the chosen role.
+3. Check boundary cases when the structure is not an ordinary reusable UI component.
+Read [references/boundary-cases.md](references/boundary-cases.md) for providers, pages, form coordinators, and loading or error shells before finalizing classification, packaging, or ownership for those cases.
+
+4. Add optional patterns only when they strengthen the chosen role.
 Use [references/patterns.md](references/patterns.md) for `compound`, `headless hook plus UI shell`, and `slot-based or polymorphic` patterns.
 
-4. Decide packaging and ownership.
+5. Decide packaging and ownership.
 Read [references/packaging.md](references/packaging.md) and [references/ownership.md](references/ownership.md) to determine folder shape, public API boundaries, local-first placement, and promotion rules for the chosen boundary.
-
-5. Check boundary cases when the structure is not an ordinary reusable UI component.
-Read [references/boundary-cases.md](references/boundary-cases.md) for providers, pages, form coordinators, and loading or error shells.
 
 ## Working Rules
 
