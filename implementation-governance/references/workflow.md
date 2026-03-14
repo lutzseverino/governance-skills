@@ -11,15 +11,38 @@ Decide what must change to satisfy the request and what should remain untouched.
 3. Choose the extraction outcome only after the scope is clear.
 Decide whether the change should stay `inline`, become a `local helper`, move into a `local module`, or become a `boundary`. After extraction, keep the boundary at the nearest ownership level first. Prefer extracting pure local logic before sharing code that carries side effects or orchestration.
 
-4. Materialize the change using the dominant convention in the touched area.
+4. Re-run the workflow inside each meaningful boundary introduced by the task.
+If the task creates a new package, module, service, feature slice, adapter, boundary, or public seam, run a local governance pass for that unit before materializing it fully. Re-check its responsibility, owner, public seam, extraction shape, convention fit, and validation needs.
+
+5. Materialize the change using the dominant convention in the touched area.
 Preserve local naming, file placement, entrypoint, dependency, side-effect, and validation conventions when they are clearly established in the area you are changing.
 Do not replace an acceptable local stack pattern with a technically cleaner alternative unless the existing pattern is materially harmful, directly blocks the change, or the request explicitly includes standardization.
 
-5. Match validation depth to the blast radius.
+6. Match validation depth to the blast radius.
 Meet the minimum validation floor for the change kind and blast radius, then add more coverage only when the risk requires it.
 
-6. Escalate instead of guessing when the consequence is wider than the request.
+7. Escalate instead of guessing when the consequence is wider than the request.
 Ask before changing public contracts, promoting code into broader ownership with unclear placement, standardizing a mixed area, or making a high-risk change without credible validation.
+
+## Recursive Boundary Pass
+
+Use a recursive boundary pass when the task:
+
+- scaffolds a new project area, package tree, or feature slice
+- introduces a new module, package, service, adapter, or public seam
+- splits one owner into sub-units with different reasons to change
+- turns a high-level architecture plan into concrete files, folders, or packages
+
+At each depth, re-check:
+
+- the unit's main responsibility
+- the nearest owner that should contain it
+- the narrowest public seam it needs
+- what stays `inline`, what becomes a `local helper` or `local module`, and what deserves a `boundary`
+- whether local convention is already clear for this unit
+- what validation is proportionate for this layer
+
+Stop descending when the remaining unit is simple, local in effect, and already governed by clear nearby convention.
 
 ## Default Sequence
 
@@ -29,10 +52,11 @@ When in doubt, follow this default sequence:
 2. keep the scope local and make any contract surface explicit
 3. keep code `inline` unless clarity or ownership clearly improves with extraction
 4. keep extracted code at the nearest ownership level first
-5. preserve the local convention in the touched area
-6. keep an acceptable local stack pattern unless the task or the current harm clearly justifies breaking from it
-7. meet the minimum relevant validation floor
-8. escalate only when the wider consequence is real and unclear
+5. re-run the same governance questions for each meaningful boundary created by the task
+6. preserve the local convention in the touched area
+7. keep an acceptable local stack pattern unless the task or the current harm clearly justifies breaking from it
+8. meet the minimum relevant validation floor
+9. escalate only when the wider consequence is real and unclear
 
 ## Common Failure Modes
 
@@ -40,6 +64,7 @@ When in doubt, follow this default sequence:
 - forcing mixed work into one label and losing the real source of risk
 - treating a `local refactor` as justification for new shared abstractions
 - extracting code only to reduce file length or satisfy a style preference
+- stopping at top-level architecture while leaving lower-level boundaries ad hoc
 - widening a contract surface when an internal seam would suffice
 - sharing orchestration code before the underlying logic has a stable local shape
 - replacing an acceptable local stack pattern with a cleaner but disruptive one

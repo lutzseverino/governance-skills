@@ -56,6 +56,24 @@ If the touched area contains mixed conventions or uneven structure:
 - avoid widening the change just to make nearby code uniform
 - escalate if choosing one pattern would effectively standardize a wider area
 
+## Depth And Stop Rules
+
+Descend into another layer of decision-making only when the task introduces or reshapes a meaningful boundary.
+
+Treat these as meaningful boundaries:
+
+- a new package, feature slice, service, module, adapter, or boundary
+- a new public seam or entrypoint
+- a structural split between units with different reasons to change
+
+Do not descend further for:
+
+- trivial helpers
+- straightforward local implementation inside a clearly owned unit
+- structure that is already obvious from nearby convention
+
+Stop when the remaining unit is clearly owned, local in effect, and no longer changes package, module, ownership, or public-seam decisions.
+
 ## Common Scoping Errors
 
 - fixing one bug by rewriting the whole subsystem

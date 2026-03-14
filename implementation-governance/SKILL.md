@@ -19,13 +19,16 @@ If the change alters a public export, interface, schema, route shape, event payl
 3. Decide what should stay inline and what should be extracted.
 Use [references/extraction.md](references/extraction.md) to choose between `inline`, `local helper`, `local module`, and `boundary`.
 
-4. Check local conventions before materializing the change.
+4. Re-apply governance inside each meaningful boundary introduced by the task.
+Use [references/workflow.md](references/workflow.md), [references/scoping.md](references/scoping.md), and [references/extraction.md](references/extraction.md) to re-run the same local decisions for each new module, package, service, feature slice, adapter, or boundary until the remaining work is simple and local.
+
+5. Check local conventions before materializing the change.
 Use [references/conventions.md](references/conventions.md) to preserve dominant local conventions, handle mixed areas carefully, and avoid silently standardizing a wider area than the request requires.
 
-5. Decide how much validation the change needs.
+6. Decide how much validation the change needs.
 Use [references/validation.md](references/validation.md) to match validation depth to blast radius and change kind.
 
-6. Escalate when the next correct step is not safe to guess.
+7. Escalate when the next correct step is not safe to guess.
 Use [references/escalation.md](references/escalation.md) when the change would alter public contracts, widen ownership, standardize a mixed area, or otherwise create lasting consequences beyond the immediate request.
 
 ## Working Rules
@@ -37,6 +40,8 @@ Use [references/escalation.md](references/escalation.md) when the change would a
 - Prefer the smallest correct change.
 - Preserve the dominant convention in the touched area before considering wider normalization.
 - Preserve acceptable local stack patterns before introducing a technically cleaner alternative.
+- Re-apply governance at each meaningful boundary introduced by the task until the remaining work is simple and local.
+- Do not stop at top-level architecture when the task includes scaffolding, package design, or other structural materialization.
 - Shared abstractions must be earned by real reuse or clearly broader ownership.
 - Prefer local ownership first after extraction before promoting code into broader shared scope.
 - Keep contract surfaces as narrow as the request allows.
@@ -52,6 +57,7 @@ For a review, plan, or implementation proposal:
 - state the intended scope
 - state the extraction outcome
 - explain any contract-surface handling when relevant
+- explain any recursive boundary pass only when the task creates meaningful sub-boundaries
 - explain the convention decision
 - explain the planned validation depth
 - call out any escalation point or confirm that none is needed
@@ -64,6 +70,7 @@ Secondary change kinds: ...
 Scope: ...
 Extraction outcome: ...
 Contract note: ...
+Recursive notes: ...
 Convention decision: ...
 Validation: ...
 Escalation note: ...

@@ -24,6 +24,7 @@ Use [Workflow](./workflow.md) as the operational entry point when making a decis
 - Scoping policy defines how far the change should reach, how ownership levels are interpreted, and when broader ownership is justified.
 - Contract change policy defines how an approved contract-affecting change should be carried out safely.
 - Extraction policy defines whether code should stay `inline`, become a `local helper`, move into a `local module`, or become a `boundary`.
+- Workflow and scoping are recursive when the task introduces meaningful new boundaries that must be materialized.
 - Convention handling defines how to preserve dominant local patterns, acceptable stack patterns, dependency shapes, and side-effect placement without silently standardizing a wider area.
 - Validation policy defines how much validation the change needs based on risk and blast radius.
 - Escalation policy defines when the next step should be confirmed instead of guessed.
@@ -35,6 +36,7 @@ Use [Workflow](./workflow.md) as the operational entry point when making a decis
 3. Use [Change Scoping Policy](./scoping.md) to choose the smallest correct change, identify the correct owner level, and determine whether broader ownership is actually required.
 4. If the change affects a contract surface, use [Contract Change Policy](./contract-changes.md) after approval to choose the narrowest safe contract change.
 5. Use [Extraction Policy](./extraction.md) to decide what stays `inline` and what should become a `local helper`, `local module`, or `boundary`.
-6. Use [Convention Handling Policy](./conventions.md) to preserve dominant local patterns and avoid accidental standardization.
-7. Use [Validation Policy](./validation.md) to meet the minimum validation floor for the change kind and blast radius.
-8. Use [Escalation Policy](./escalation.md) when broader consequences, unclear ownership, or mixed conventions make the next step unsafe to assume.
+6. Re-apply [Workflow](./workflow.md), [Change Scoping Policy](./scoping.md), and [Extraction Policy](./extraction.md) inside each meaningful boundary introduced by the task until the remaining work is straightforward local implementation.
+7. Use [Convention Handling Policy](./conventions.md) to preserve dominant local patterns and avoid accidental standardization.
+8. Use [Validation Policy](./validation.md) to meet the minimum validation floor for the change kind and blast radius.
+9. Use [Escalation Policy](./escalation.md) when broader consequences, unclear ownership, or mixed conventions make the next step unsafe to assume.

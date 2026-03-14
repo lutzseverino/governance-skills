@@ -47,6 +47,8 @@ Choose `local module` when:
 
 Do not create a `local module` just to shorten a file.
 
+When a `local module` creates a new local seam with its own imports, dependencies, state, or entrypoint shape, check whether that module now needs its own local governance pass before materializing the rest of its contents.
+
 ### `boundary`
 
 Extract a named boundary with a distinct responsibility. Ownership is a later decision handled by [Change Scoping Policy](./scoping.md).
@@ -59,6 +61,8 @@ Choose `boundary` when:
 - side effects or orchestration deserve a clearer seam than the current owner provides
 
 After extracting a `boundary`, keep it at the nearest ownership level first. Promote it into broader shared scope only when [Change Scoping Policy](./scoping.md) shows that ownership is clearly broader.
+
+When a `boundary` is introduced, re-run the local governance questions for that unit before filling in its internal structure.
 
 ## Objective Signals
 
@@ -75,6 +79,7 @@ Use these as concrete extraction signals:
 ## Guardrails
 
 - Do not extract only to reduce line count.
+- Do not stop after naming a top-level boundary if the task also requires scaffolding or materializing it.
 - Do not promote an extracted `boundary` into shared scope only because it looks reusable.
 - Do not share side-effecting orchestration before the underlying responsibility is stable and ownership is clearly broader.
 - Do not create a boundary without a distinct responsibility.
