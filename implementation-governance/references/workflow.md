@@ -14,8 +14,9 @@ Decide whether the change should stay `inline`, become a `local helper`, move in
 4. Re-run the workflow inside each meaningful boundary introduced by the task.
 If the task introduces or reshapes a meaningful boundary, re-run the full workflow for that unit before materializing it fully.
 
-5. Materialize the change using the dominant convention in the touched area.
+5. Materialize the change using local implementation rules and the dominant convention in the touched area.
 Preserve local naming, file placement, entrypoint, dependency, side-effect, and validation conventions when they are clearly established in the area you are changing.
+Keep responsibilities legible, public seams narrow, dependency direction obvious, and orchestration separate from pure local logic when mixing them would blur the unit's role.
 Do not replace an acceptable local stack pattern with a technically cleaner alternative unless the existing pattern is materially harmful, directly blocks the change, or the request explicitly includes standardization.
 
 6. Match validation depth to the blast radius.
@@ -52,10 +53,11 @@ When in doubt, follow this default sequence:
 3. keep code `inline` unless clarity or ownership clearly improves with extraction
 4. keep extracted code at the nearest ownership level first
 5. re-run the same governance questions for each meaningful boundary created by the task
-6. preserve the local convention in the touched area
-7. keep an acceptable local stack pattern unless the task or the current harm clearly justifies breaking from it
-8. meet the minimum relevant validation floor
-9. escalate only when the wider consequence is real and unclear
+6. materialize each unit with clear responsibility, narrow seams, and obvious dependency direction
+7. preserve the local convention in the touched area
+8. keep an acceptable local stack pattern unless the task or the current harm clearly justifies breaking from it
+9. meet the minimum relevant validation floor
+10. escalate only when the wider consequence is real and unclear
 
 ## Common Failure Modes
 
@@ -64,6 +66,7 @@ When in doubt, follow this default sequence:
 - treating a `local refactor` as justification for new shared abstractions
 - extracting code only to reduce file length or satisfy a style preference
 - stopping at top-level architecture while leaving lower-level boundaries ad hoc
+- materializing a boundary with incidental coupling or mixed responsibilities inside it
 - widening a contract surface when an internal seam would suffice
 - sharing orchestration code before the underlying logic has a stable local shape
 - replacing an acceptable local stack pattern with a cleaner but disruptive one

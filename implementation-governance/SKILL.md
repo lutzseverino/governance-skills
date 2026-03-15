@@ -22,8 +22,8 @@ Use [references/extraction.md](references/extraction.md) to choose between `inli
 4. Re-apply governance inside each meaningful boundary introduced by the task.
 Use [references/workflow.md](references/workflow.md) to re-run the full workflow for each meaningful boundary introduced by the task. Use [references/scoping.md](references/scoping.md) and [references/extraction.md](references/extraction.md) to decide which new seams are meaningful and when to stop descending.
 
-5. Check local conventions before materializing the change.
-Use [references/conventions.md](references/conventions.md) to preserve dominant local conventions, handle mixed areas carefully, and avoid silently standardizing a wider area than the request requires.
+5. Materialize the chosen boundaries with local implementation rules.
+Use [references/materialization.md](references/materialization.md) and [references/conventions.md](references/conventions.md) to preserve dominant local conventions while keeping responsibilities, public seams, dependency direction, and orchestration shape clear inside each unit.
 
 6. Decide how much validation the change needs.
 Use [references/validation.md](references/validation.md) to match validation depth to blast radius and change kind.
@@ -42,6 +42,8 @@ Use [references/escalation.md](references/escalation.md) when the change would a
 - Preserve acceptable local stack patterns before introducing a technically cleaner alternative.
 - Re-apply governance at each meaningful boundary introduced by the task until the remaining work is simple and local.
 - Do not stop at top-level architecture when the task includes scaffolding, package design, or other structural materialization.
+- Materialize each unit with the simplest structure that keeps responsibility, public seams, and dependency direction clear.
+- Separate pure local logic from orchestration when mixing them would obscure the unit's main responsibility.
 - Shared abstractions must be earned by real reuse or clearly broader ownership.
 - Prefer local ownership first after extraction before promoting code into broader shared scope.
 - Keep contract surfaces as narrow as the request allows.
@@ -58,6 +60,7 @@ For a review, plan, or implementation proposal:
 - state the extraction outcome
 - explain any contract-surface handling when relevant
 - explain any recursive boundary pass only when the task creates meaningful sub-boundaries
+- explain any materialization decision only when local code shape, dependency direction, or orchestration separation materially affects the result
 - explain the convention decision
 - explain the planned validation depth
 - call out any escalation point or confirm that none is needed
@@ -71,6 +74,7 @@ Scope: ...
 Extraction outcome: ...
 Contract note: ...
 [Recursive notes: ...]
+[Materialization note: ...]
 Convention decision: ...
 Validation: ...
 Escalation note: ...
@@ -86,6 +90,7 @@ Use these references directly as needed:
 - [references/scoping.md](references/scoping.md)
 - [references/contract-changes.md](references/contract-changes.md)
 - [references/extraction.md](references/extraction.md)
+- [references/materialization.md](references/materialization.md)
 - [references/conventions.md](references/conventions.md)
 - [references/validation.md](references/validation.md)
 - [references/escalation.md](references/escalation.md)
