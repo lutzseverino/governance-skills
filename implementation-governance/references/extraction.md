@@ -47,7 +47,7 @@ Choose `local module` when:
 
 Do not create a `local module` just to shorten a file.
 
-When a `local module` creates a new local seam with its own imports, dependencies, state, or entrypoint shape, check whether that module now needs its own local governance pass before materializing the rest of its contents.
+When a `local module` creates a meaningful new seam with its own imports, dependencies, state, or entrypoint shape, check whether that module now needs its own local governance pass before materializing the rest of its contents.
 
 ### `boundary`
 

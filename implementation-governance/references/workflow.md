@@ -12,7 +12,7 @@ Decide what must change to satisfy the request and what should remain untouched.
 Decide whether the change should stay `inline`, become a `local helper`, move into a `local module`, or become a `boundary`. After extraction, keep the boundary at the nearest ownership level first. Prefer extracting pure local logic before sharing code that carries side effects or orchestration.
 
 4. Re-run the workflow inside each meaningful boundary introduced by the task.
-If the task creates a new package, module, service, feature slice, adapter, boundary, or public seam, run a local governance pass for that unit before materializing it fully. Re-check its responsibility, owner, public seam, extraction shape, convention fit, and validation needs.
+If the task introduces or reshapes a meaningful boundary, re-run the full workflow for that unit before materializing it fully.
 
 5. Materialize the change using the dominant convention in the touched area.
 Preserve local naming, file placement, entrypoint, dependency, side-effect, and validation conventions when they are clearly established in the area you are changing.
@@ -33,16 +33,15 @@ Use a recursive boundary pass when the task:
 - splits one owner into sub-units with different reasons to change
 - turns a high-level architecture plan into concrete files, folders, or packages
 
-At each depth, re-check:
+At each depth, re-run the same workflow:
 
-- the unit's main responsibility
-- the nearest owner that should contain it
-- the narrowest public seam it needs
-- what stays `inline`, what becomes a `local helper` or `local module`, and what deserves a `boundary`
-- whether local convention is already clear for this unit
-- what validation is proportionate for this layer
+1. classify the local change kind if it still matters at this layer
+2. confirm the smallest correct local scope and any contract surface
+3. decide what stays `inline`, what becomes a `local helper` or `local module`, and what deserves a `boundary`
+4. recurse again only if that decision creates another meaningful boundary
+5. apply local convention, validation, and escalation rules for the unit
 
-Stop descending when the remaining unit is simple, local in effect, and already governed by clear nearby convention.
+Use [Change Scoping Policy](./scoping.md) as the canonical stop rule for when to stop descending.
 
 ## Default Sequence
 

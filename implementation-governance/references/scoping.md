@@ -72,7 +72,12 @@ Do not descend further for:
 - straightforward local implementation inside a clearly owned unit
 - structure that is already obvious from nearby convention
 
-Stop when the remaining unit is clearly owned, local in effect, and no longer changes package, module, ownership, or public-seam decisions.
+Stop when all of these are true:
+
+- the remaining unit is clearly owned
+- the remaining unit is local in effect
+- package, module, ownership, and public-seam decisions are settled
+- nearby convention is already clear enough to materialize the unit without another boundary decision
 
 ## Common Scoping Errors
 
