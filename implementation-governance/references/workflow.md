@@ -39,8 +39,9 @@ At each depth, re-run the same workflow:
 1. classify the local change kind if it still matters at this layer
 2. confirm the smallest correct local scope and any contract surface
 3. decide what stays `inline`, what becomes a `local helper` or `local module`, and what deserves a `boundary`
-4. recurse again only if that decision creates another meaningful boundary
-5. apply local convention, validation, and escalation rules for the unit
+4. materialize the chosen unit with clear responsibility, narrow seams, obvious dependency direction, and explicit orchestration shape
+5. recurse again only if that decision creates another meaningful boundary
+6. apply local convention, validation, and escalation rules for the unit
 
 Use [Change Scoping Policy](./scoping.md) as the canonical stop rule for when to stop descending.
 

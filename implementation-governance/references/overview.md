@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Group the implementation governance references by concern so change classification, scope control, extraction, convention handling, validation, and escalation remain clear and independently maintainable.
+Group the implementation governance references by concern so change classification, scope control, extraction, materialization, convention handling, validation, and escalation remain clear and independently maintainable.
 
 Use [Workflow](./workflow.md) as the operational entry point when making a decision.
 

@@ -5,7 +5,7 @@ description: Opinionated implementation guidance for code changes across project
 
 # Implementation Governance
 
-Make consistent implementation decisions without drifting into broad, unclear, or opportunistic code changes.
+Make consistent implementation and materialization decisions without drifting into broad, unclear, or opportunistic code changes.
 
 ## Workflow
 
@@ -40,7 +40,7 @@ Use [references/escalation.md](references/escalation.md) when the change would a
 - Prefer the smallest correct change.
 - Preserve the dominant convention in the touched area before considering wider normalization.
 - Preserve acceptable local stack patterns before introducing a technically cleaner alternative.
-- Re-apply governance at each meaningful boundary introduced by the task until the remaining work is simple and local.
+- Re-run the full workflow at each meaningful boundary introduced by the task until [Change Scoping Policy](references/scoping.md) says the remaining work is straightforward local implementation.
 - Do not stop at top-level architecture when the task includes scaffolding, package design, or other structural materialization.
 - Materialize each unit with the simplest structure that keeps responsibility, public seams, and dependency direction clear.
 - Separate pure local logic from orchestration when mixing them would obscure the unit's main responsibility.
@@ -60,7 +60,7 @@ For a review, plan, or implementation proposal:
 - state the extraction outcome
 - explain any contract-surface handling when relevant
 - explain any recursive boundary pass only when the task creates meaningful sub-boundaries
-- explain any materialization decision only when local code shape, dependency direction, or orchestration separation materially affects the result
+- explain the materialization decision whenever the outcome is `local module` or `boundary`, or when local code shape, dependency direction, or orchestration separation materially affects the result
 - explain the convention decision
 - explain the planned validation depth
 - call out any escalation point or confirm that none is needed

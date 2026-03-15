@@ -6,13 +6,15 @@ Materialize the chosen unit with the simplest structure that keeps responsibilit
 
 This policy governs code inside an already chosen owner, module, package, service, or boundary. It does not replace extraction, ownership, or convention decisions.
 
+If shaping the unit reveals that it actually needs a new unit, broader owner, or new public seam, return to [Extraction Policy](./extraction.md) or [Change Scoping Policy](./scoping.md) instead of treating that as a materialization-only choice.
+
 ## Keep Responsibilities Legible
 
-Shape the unit so its main responsibility remains obvious while reading it.
+Shape the unit so its owned responsibility and local seam remain obvious while reading it.
 
-- keep one clear local reason to change per unit
-- separate pure transformation or validation logic from orchestration when mixing them obscures the unit's role
-- do not bury the main responsibility under incidental setup, mapping, or wiring
+- keep one clear owned responsibility per unit
+- separate pure transformation or validation logic from orchestration when mixing them obscures the unit's seam
+- do not bury the owned responsibility under incidental setup, mapping, or wiring
 
 ## Keep Seams Narrow
 
@@ -32,7 +34,7 @@ Make it clear what depends on what inside the chosen unit.
 
 ## Split Only For Real Reasons
 
-Split local code again only when clarity, responsibility, or dependency direction materially improves.
+Split local code again only when clarity, owned responsibility, or dependency direction materially improves.
 
 - do not split only to shorten a file
 - do not split when nearby convention already makes the current structure obvious
@@ -40,9 +42,9 @@ Split local code again only when clarity, responsibility, or dependency directio
 
 ## Naming Rule
 
-Name local units by responsibility and role in the design, not by incidental mechanics.
+Name local units by owned responsibility and seam role, not by incidental mechanics.
 
-- prefer names that explain what the unit owns or coordinates
+- prefer names that explain what the unit owns, coordinates, or exposes
 - avoid names that only describe the implementation trick used inside it
 
 ## Common Errors
