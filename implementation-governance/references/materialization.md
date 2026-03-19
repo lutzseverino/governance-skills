@@ -13,7 +13,7 @@ If shaping the unit reveals that it actually needs a new unit, broader owner, or
 Shape the unit so its owned responsibility and local seam remain obvious while reading it.
 
 - keep one clear owned responsibility per unit
-- separate pure transformation or validation logic from orchestration when mixing them obscures the unit's seam
+- separate pure transformation or validation logic from orchestration when mixing them obscures the unit's owned seam
 - do not bury the owned responsibility under incidental setup, mapping, or wiring
 
 ## Keep Seams Narrow
@@ -49,7 +49,7 @@ Name local units by owned responsibility and seam role, not by incidental mechan
 
 ## Common Errors
 
-- mixing orchestration and pure logic until the unit's role becomes blurry
+- mixing orchestration and pure logic until the unit's owned responsibility or seam becomes blurry
 - exposing helper details that the owner does not actually need
 - letting siblings share incidental dependencies instead of a narrow seam
 - splitting local code aggressively without improving responsibility or coupling

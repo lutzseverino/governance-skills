@@ -16,7 +16,7 @@ If the task introduces or reshapes a meaningful boundary, re-run the full workfl
 
 5. Materialize the change using local implementation rules and the dominant convention in the touched area.
 Preserve local naming, file placement, entrypoint, dependency, side-effect, and validation conventions when they are clearly established in the area you are changing.
-Keep responsibilities legible, public seams narrow, dependency direction obvious, and orchestration separate from pure local logic when mixing them would blur the unit's role.
+Keep responsibilities legible, public seams narrow, dependency direction obvious, and orchestration separate from pure local logic when mixing them would blur the unit's owned responsibility or seam.
 Do not replace an acceptable local stack pattern with a technically cleaner alternative unless the existing pattern is materially harmful, directly blocks the change, or the request explicitly includes standardization.
 
 6. Match validation depth to the blast radius.
