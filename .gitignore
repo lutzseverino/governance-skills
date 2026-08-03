@@ -19,3 +19,8 @@ Thumbs.db
 
 # Skill validation scratch data
 .skill-validation/
+
+# Python tooling
+__pycache__/
+*.py[cod]
+.venv/

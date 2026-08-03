@@ -46,10 +46,16 @@
     }
   },
   "variables": {},
+  "local-fragments": {
+    ".gitignore": [
+      ".repository-standards/gitignore.local"
+    ]
+  },
   "repository-owned": [
     "README.md",
     "LICENSE",
     "docs/README.md",
+    ".repository-standards/gitignore.local",
     "implementation-governance/**",
     "react-component-governance/**",
     "scripts/validate",
