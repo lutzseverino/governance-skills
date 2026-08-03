@@ -1,0 +1,186 @@
+#!/usr/bin/env python3
+"""Run the canonical validation gate for this skill repository."""
+
+from __future__ import annotations
+
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+from urllib.parse import unquote, urlparse
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+MARKDOWN_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+AGENT_FIELD = re.compile(r'^  ([a-z_]+): ("(?:[^"\\]|\\.)*")$')
+
+
+def validate_manifest(errors: list[str]) -> None:
+    path = ROOT / ".repository-standards.json"
+    try:
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"{path.relative_to(ROOT)}: invalid JSON: {exc}")
+        return
+
+    if manifest.get("standards-version") != 3:
+        errors.append(".repository-standards.json: standards-version must be 3")
+    if manifest.get("standards-release") != "2.0.0":
+        errors.append(".repository-standards.json: standards-release must be 2.0.0")
+    if manifest.get("profiles") != ["common", "documentation", "codex-skill"]:
+        errors.append(
+            ".repository-standards.json: profiles must be common, documentation, "
+            "and codex-skill"
+        )
+
+
+def parse_frontmatter(path: Path, errors: list[str]) -> dict[str, str] | None:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if not lines or lines[0] != "---":
+        errors.append(f"{path.relative_to(ROOT)}: missing opening frontmatter fence")
+        return None
+    try:
+        closing = lines.index("---", 1)
+    except ValueError:
+        errors.append(f"{path.relative_to(ROOT)}: missing closing frontmatter fence")
+        return None
+
+    fields: dict[str, str] = {}
+    for line in lines[1:closing]:
+        if ":" not in line:
+            errors.append(f"{path.relative_to(ROOT)}: malformed frontmatter line {line!r}")
+            continue
+        key, value = line.split(":", 1)
+        fields[key.strip()] = value.strip()
+    return fields
+
+
+def validate_agent_metadata(skill_dir: Path, skill_name: str, errors: list[str]) -> None:
+    path = skill_dir / "agents" / "openai.yaml"
+    if not path.is_file():
+        errors.append(f"{path.relative_to(ROOT)}: missing agent metadata")
+        return
+
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if not lines or lines[0] != "interface:":
+        errors.append(f"{path.relative_to(ROOT)}: expected interface mapping")
+        return
+
+    fields: dict[str, str] = {}
+    for line in lines[1:]:
+        match = AGENT_FIELD.fullmatch(line)
+        if match is None:
+            errors.append(f"{path.relative_to(ROOT)}: unsupported line {line!r}")
+            continue
+        try:
+            fields[match.group(1)] = json.loads(match.group(2))
+        except json.JSONDecodeError as exc:
+            errors.append(f"{path.relative_to(ROOT)}: invalid quoted value: {exc}")
+
+    expected = {"display_name", "short_description", "default_prompt"}
+    if set(fields) != expected:
+        errors.append(
+            f"{path.relative_to(ROOT)}: expected fields {sorted(expected)}, "
+            f"found {sorted(fields)}"
+        )
+        return
+    if not fields["display_name"].strip():
+        errors.append(f"{path.relative_to(ROOT)}: display_name must not be empty")
+    if not 25 <= len(fields["short_description"]) <= 64:
+        errors.append(
+            f"{path.relative_to(ROOT)}: short_description must be 25-64 characters"
+        )
+    if f"${skill_name}" not in fields["default_prompt"]:
+        errors.append(
+            f"{path.relative_to(ROOT)}: default_prompt must mention ${skill_name}"
+        )
+
+
+def validate_skills(errors: list[str]) -> None:
+    skill_dirs = sorted(path.parent for path in ROOT.glob("*/SKILL.md"))
+    if not skill_dirs:
+        errors.append("repository: no skill packages found")
+        return
+
+    for skill_dir in skill_dirs:
+        skill_path = skill_dir / "SKILL.md"
+        fields = parse_frontmatter(skill_path, errors)
+        if fields is None:
+            continue
+        if set(fields) != {"name", "description"}:
+            errors.append(
+                f"{skill_path.relative_to(ROOT)}: frontmatter must contain only "
+                "name and description"
+            )
+            continue
+        skill_name = fields["name"]
+        if not SKILL_NAME.fullmatch(skill_name):
+            errors.append(f"{skill_path.relative_to(ROOT)}: invalid skill name")
+        if skill_name != skill_dir.name:
+            errors.append(
+                f"{skill_path.relative_to(ROOT)}: name must match directory "
+                f"{skill_dir.name!r}"
+            )
+        if not fields["description"]:
+            errors.append(f"{skill_path.relative_to(ROOT)}: description must not be empty")
+        validate_agent_metadata(skill_dir, skill_name, errors)
+
+
+def validate_markdown_links(errors: list[str]) -> None:
+    for markdown in sorted(ROOT.rglob("*.md")):
+        if ".git" in markdown.parts:
+            continue
+        text = markdown.read_text(encoding="utf-8")
+        for raw_target in MARKDOWN_LINK.findall(text):
+            target = raw_target.strip()
+            if target.startswith("<") and target.endswith(">"):
+                target = target[1:-1]
+            parsed = urlparse(target)
+            if parsed.scheme or target.startswith("#"):
+                continue
+            relative_target = unquote(target.split("#", 1)[0])
+            if not relative_target:
+                continue
+            resolved = (markdown.parent / relative_target).resolve()
+            try:
+                resolved.relative_to(ROOT)
+            except ValueError:
+                errors.append(
+                    f"{markdown.relative_to(ROOT)}: link escapes repository: {target}"
+                )
+                continue
+            if not resolved.exists():
+                errors.append(
+                    f"{markdown.relative_to(ROOT)}: missing link target: {target}"
+                )
+
+
+def main() -> int:
+    errors: list[str] = []
+    validate_manifest(errors)
+    validate_skills(errors)
+    validate_markdown_links(errors)
+
+    if errors:
+        print("Validation failed:", file=sys.stderr)
+        for error in errors:
+            print(f"- {error}", file=sys.stderr)
+        return 1
+
+    workflow_check = subprocess.run(
+        [sys.executable, str(ROOT / ".github/scripts/check-workflows.py")],
+        cwd=ROOT,
+        check=False,
+    )
+    if workflow_check.returncode:
+        return workflow_check.returncode
+
+    skill_count = len(list(ROOT.glob("*/SKILL.md")))
+    print(f"Validation passed for {skill_count} skills.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
