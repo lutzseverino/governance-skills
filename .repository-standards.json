@@ -1,0 +1,58 @@
+{
+  "standards-version": 3,
+  "standards-release": "2.0.0",
+  "profiles": [
+    "common",
+    "documentation",
+    "codex-skill"
+  ],
+  "boundaries": [
+    {
+      "path": ".",
+      "type": "repository",
+      "title": "Governance Skills"
+    }
+  ],
+  "dependency-updates": [
+    {
+      "ecosystem": "github-actions",
+      "directory": "/",
+      "schedule": "weekly"
+    }
+  ],
+  "github": {
+    "repository": "lutzseverino/governance-skills",
+    "default-branch": "main",
+    "settings": {
+      "delete-branch-on-merge": true,
+      "allow-squash-merge": true,
+      "allow-merge-commit": false,
+      "allow-rebase-merge": false
+    },
+    "ruleset": {
+      "name": "Protect main",
+      "required-status-checks": [
+        "CI / Required",
+        "PR Policy / Validate"
+      ],
+      "require-current-branch": true,
+      "required-approvals": 0,
+      "allowed-merge-methods": [
+        "squash"
+      ],
+      "prevent-deletion": true,
+      "prevent-force-push": true,
+      "allow-bypass-actors": false
+    }
+  },
+  "variables": {},
+  "repository-owned": [
+    "README.md",
+    "LICENSE",
+    "docs/README.md",
+    "implementation-governance/**",
+    "react-component-governance/**",
+    "scripts/validate",
+    ".github/workflows/ci.yml"
+  ]
+}

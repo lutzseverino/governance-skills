@@ -1,5 +1,5 @@
 <div align="center">
-    <h1 align="center">Governance Skills</h1>
+  <h1>Governance Skills</h1>
     <p>Opinionated governance skills for disciplined software change and architecture decisions.</p>
     <p>
         <img alt="skills" src="https://img.shields.io/badge/skills-2-0f172a">
@@ -92,8 +92,31 @@ If a project already uses `skills.sh`, update installed skills with:
 npx skills update
 ```
 
+## Development
+
+Run the canonical local validation gate before opening a pull request:
+
+```bash
+./scripts/validate
+```
+
+The gate validates skill package structure, metadata, internal Markdown links,
+and GitHub Actions workflows. Repository-wide contribution and pull-request
+rules are defined in [`CONTRIBUTING.md`](./CONTRIBUTING.md) and pinned through
+[`.repository-standards.json`](./.repository-standards.json).
+
+## Documentation
+
+See [`docs/README.md`](docs/README.md) for repository-maintainer documentation
+and the canonical authoring templates. Runtime guidance remains in each
+skill's `references/` directory.
+
 ## Use
 
 Use `$implementation-governance` when you need help deciding how wide a code change should be, what should stay local, when extraction is justified, how to handle mixed conventions, and how much validation is proportionate.
 
 Use `$react-component-governance` when you need help deciding whether UI should stay inline or be extracted, what kind of component or non-component boundary should exist, and how extracted React code should be packaged and owned.
+
+## License
+
+Licensed under the terms in [`LICENSE`](LICENSE).
