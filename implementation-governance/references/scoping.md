@@ -2,9 +2,9 @@
 
 ## Default Rule
 
-Choose the smallest correct change.
+Choose the smallest correct change within the selected solution horizon.
 
-The correct scope is the narrowest set of files, ownership levels, and contracts that must change to satisfy the request safely.
+The correct scope is the narrowest set of files, ownership levels, and contracts that must change to fulfill the selected `contained`, `structural`, or `foundational` outcome safely and coherently.
 
 ## Keep The Change Local By Default
 
@@ -15,6 +15,8 @@ Prefer the current ownership level when:
 - the extracted logic is only used by one ownership level
 - broader reuse is speculative rather than present
 
+Apply these as defaults for a `contained` horizon. Do not use them to erase structural or foundational work the user deliberately selected.
+
 ## Widen Scope Only For Real Reasons
 
 Broader scope is justified when one or more of these are true:
@@ -23,6 +25,8 @@ Broader scope is justified when one or more of these are true:
 - the extracted code clearly belongs to a broader owner that already exists
 - the current owner mixes responsibilities in a way that directly blocks a correct change
 - a public contract, schema, API, or integration boundary must change to satisfy the request
+- the selected structural horizon must establish or repair a convention across one coherent local area
+- the selected foundational horizon must reshape ownership, dependencies, contracts, or architecture across multiple areas
 
 ## Ownership Rules
 
@@ -42,10 +46,10 @@ Broader scope is justified when one or more of these are true:
 
 Treat public exports, interfaces, schemas, route shapes, event payloads, database contracts, and external integration boundaries as contract surfaces.
 
-- Keep a contract surface as narrow as the request allows.
+- Keep a contract surface no wider than the selected outcome requires.
 - Prefer changing an internal seam before widening a public contract.
 - If a contract surface must widen or change shape, include that in the scope explicitly rather than treating it as incidental fallout.
-- If the request implies a contract change but does not acknowledge its broader consequence, escalate before proceeding.
+- If the selected outcome implies a contract change but the user has not acknowledged its broader consequence, escalate before proceeding.
 - After approval, follow [Contract Change Policy](./contract-changes.md) instead of treating the approved change as an ordinary local edit.
 
 ## Mixed-Area Rule
@@ -54,7 +58,9 @@ If the touched area contains mixed conventions or uneven structure:
 
 - preserve the dominant pattern of the local owner you are changing
 - avoid widening the change just to make nearby code uniform
-- escalate if choosing one pattern would effectively standardize a wider area
+- surface a structural or foundational option when resolving the inconsistency would address the diagnosed problem
+- after that option is selected, standardize only the coherent surface included in the selected horizon
+- escalate if the correct convention or affected surface remains unclear
 
 ## Depth And Stop Rules
 
@@ -86,3 +92,4 @@ Stop when all of these are true:
 - broad cleanup during a feature request
 - changing unrelated call sites because they are nearby
 - guessing broader ownership when the architecture does not make it clear
+- using "smallest correct change" to ignore the selected structural or foundational outcome

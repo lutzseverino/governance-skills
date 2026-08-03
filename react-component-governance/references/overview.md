@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Group the component governance references by concern so extraction, classification, packaging, and ownership rules remain clear and independently maintainable.
+Group the component governance references by concern so architectural-option, extraction, classification, packaging, and ownership rules remain clear and independently maintainable.
 
 Use [Workflow](./workflow.md) as the operational entry point when making a decision.
 
@@ -19,7 +19,7 @@ Use [Workflow](./workflow.md) as the operational entry point when making a decis
 
 ## Scope Boundaries
 
-- Workflow defines the order of operations for a decision.
+- Workflow defines the order of operations and when to present a local-versus-wider React architecture choice.
 - Classification policy defines how primary roles and optional patterns work together.
 - Role reference defines the allowed primary responsibilities.
 - Pattern reference defines optional API and composition patterns.
@@ -30,10 +30,11 @@ Use [Workflow](./workflow.md) as the operational entry point when making a decis
 ## Decision Flow
 
 1. Start with [Workflow](./workflow.md) to follow the decision sequence.
-2. Use [Component Extraction Policy](./extraction.md) to decide whether the UI should stay `inline`, become a `local helper`, become a `component boundary`, or become another boundary kind.
-3. If the extraction creates a `component boundary`, use [Component Classification Policy](./classification.md) to choose one primary role and any optional patterns that strengthen that role.
-4. If the extraction creates a `headless behavior boundary`, `provider/infrastructure boundary`, or `support boundary`, keep the boundary kind explicit instead of forcing a component role.
-5. Use [Component Boundary Cases](./boundary-cases.md) before finalizing classification, packaging, or ownership when a provider, screen, form coordinator, or loading/error shell does not fit cleanly at first glance.
-6. Read the matching role and pattern references when you need deeper guidance on the chosen classification.
-7. Apply [Component Packaging Policy](./packaging.md) to decide how the chosen boundary appears in the filesystem.
-8. Apply [Component Ownership And Sharing Policy](./ownership.md) to decide what stays local and what may move into broader shared scope.
+2. Inspect for a credible wider React architecture option and resolve any required user choice before editing.
+3. Use [Component Extraction Policy](./extraction.md) to decide whether the UI should stay `inline`, become a `local helper`, become a `component boundary`, or become another boundary kind.
+4. If the extraction creates a `component boundary`, use [Component Classification Policy](./classification.md) to choose one primary role and any optional patterns that strengthen that role.
+5. If the extraction creates a `headless behavior boundary`, `provider/infrastructure boundary`, or `support boundary`, keep the boundary kind explicit instead of forcing a component role.
+6. Use [Component Boundary Cases](./boundary-cases.md) before finalizing classification, packaging, or ownership when a provider, screen, form coordinator, or loading/error shell does not fit cleanly at first glance.
+7. Read the matching role and pattern references when you need deeper guidance on the chosen classification.
+8. Apply [Component Packaging Policy](./packaging.md) to decide how the chosen boundary appears in the filesystem.
+9. Apply [Component Ownership And Sharing Policy](./ownership.md) to decide what stays local and what may move into broader shared scope.

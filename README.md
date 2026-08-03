@@ -16,7 +16,7 @@
 
 ### [`implementation-governance`](./implementation-governance/)
 
-Opinionated implementation guidance for code changes across projects and languages. Use it to decide change kind, scope, extraction, ownership, convention handling, escalation, and validation depth.
+Opinionated implementation guidance for code changes across projects and languages. Use it to detect when a small request reveals a deeper problem, choose between contained, structural, and foundational approaches, and govern change kind, scope, extraction, ownership, conventions, escalation, and validation depth.
 
 <p>
     <a href="https://skills.sh/lutzseverino/governance-skills/implementation-governance">
@@ -31,7 +31,7 @@ Entry points: [SKILL.md](./implementation-governance/SKILL.md), [overview](./imp
 
 ### [`react-component-governance`](./react-component-governance/)
 
-Opinionated React component architecture guidance for extraction, classification, packaging, ownership, and boundary cases.
+Opinionated, standalone React component architecture guidance for extraction, classification, packaging, ownership, boundary cases, and meaningful local-versus-wider architecture choices.
 
 <p>
     <a href="https://skills.sh/lutzseverino/governance-skills/react-component-governance">
@@ -55,9 +55,12 @@ governance-skills/
     references/
       overview.md
       workflow.md
+      scope-options.md
       change-kinds.md
       scoping.md
+      contract-changes.md
       extraction.md
+      materialization.md
       conventions.md
       validation.md
       escalation.md
@@ -94,6 +97,6 @@ npx skills update
 
 ## Use
 
-Use `$implementation-governance` when you need help deciding how wide a code change should be, what should stay local, when extraction is justified, how to handle mixed conventions, and how much validation is proportionate.
+Use `$implementation-governance` when you want an agent to inspect for both the immediate problem and credible deeper architectural or convention problems, surface materially different scope options before editing, and govern the selected implementation coherently.
 
-Use `$react-component-governance` when you need help deciding whether UI should stay inline or be extracted, what kind of component or non-component boundary should exist, and how extracted React code should be packaged and owned.
+Use `$react-component-governance` independently when you need help deciding whether UI should stay inline or be extracted, whether a local request reveals a wider React architecture opportunity, what kind of component or non-component boundary should exist, and how extracted React code should be packaged and owned.
