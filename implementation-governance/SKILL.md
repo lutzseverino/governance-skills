@@ -1,84 +1,79 @@
 ---
 name: implementation-governance
-description: Opinionated implementation guidance for code changes across projects and languages. Use when implementing features, fixing bugs, refactoring, reviewing code, or planning a change and you need to decide change kind, scope, extraction, ownership, convention handling, escalation, or validation depth without drifting into opportunistic cleanup or broad, unclear rewrites.
+description: Opinionated implementation governance for code changes across projects and languages. Use when implementing features, fixing bugs, refactoring, reviewing code, or planning a change and you need to diagnose immediate and deeper structural problems, surface credible contained, structural, or foundational scope options, and decide change kind, extraction, ownership, convention handling, escalation, or validation depth.
 ---
 
 # Implementation Governance
 
-Make consistent implementation and materialization decisions without drifting into broad, unclear, or opportunistic code changes.
+Choose implementation scope deliberately, then make consistent implementation and materialization decisions inside it. Do not equate disciplined implementation with automatically choosing the narrowest intervention.
 
 ## Workflow
 
-1. Identify what kind of change this is.
-Read [references/workflow.md](references/workflow.md) and [references/change-kinds.md](references/change-kinds.md) first to classify the work with one `primary change kind` and any `secondary change kinds` that materially affect scope, extraction, or validation.
+1. Diagnose the request at both the immediate and structural levels.
+Read [references/workflow.md](references/workflow.md) and [references/scope-options.md](references/scope-options.md) first. Inspect enough surrounding code, ownership, repetition, and convention to determine whether the immediate problem is isolated or evidence of a deeper problem.
 
-2. Decide how wide the change should be and whether a contract surface is affected.
-Use [references/scoping.md](references/scoping.md) to keep the change at the smallest correct scope, decide what stays with the current owner, and determine when broader ownership is actually justified.
+2. Set the solution horizon before implementation.
+Use the canonical horizons `contained`, `structural`, and `foundational`. Honor an explicit user preference. If a small request credibly reveals a missing convention, wrong ownership, recurring workaround, or architectural problem, surface the broader option even when a contained fix remains valid. When materially different credible options exist and the user has not selected one, recommend an option, explain the tradeoff, and wait for the choice before editing. If the user delegates the decision, choose and continue. If no broader option is supported by evidence, continue with `contained` without manufacturing a choice.
+
+3. Identify what kind of change the selected horizon requires.
+Read [references/change-kinds.md](references/change-kinds.md) to classify the work with one `primary change kind` and any `secondary change kinds` that materially affect scope, extraction, or validation. Treat change kind and solution horizon as separate decisions.
+
+4. Decide the correct scope and contract handling inside the selected horizon.
+Use [references/scoping.md](references/scoping.md) to choose the smallest complete scope that fulfills the selected horizon, decide what stays with the current owner, and determine when broader ownership is justified.
 If the change alters a public export, interface, schema, route shape, event payload, database contract, or external integration boundary, read [references/escalation.md](references/escalation.md) first. Read [references/contract-changes.md](references/contract-changes.md) only after that contract-affecting change is confirmed.
 
-3. Decide what should stay inline and what should be extracted.
+5. Decide what should stay inline and what should be extracted.
 Use [references/extraction.md](references/extraction.md) to choose between `inline`, `local helper`, `local module`, and `boundary`.
 
-4. Re-apply governance inside each meaningful boundary introduced by the task.
+6. Re-apply governance inside each meaningful boundary introduced by the task.
 Use [references/workflow.md](references/workflow.md) to re-run the full workflow for each meaningful boundary introduced by the task. Use [references/scoping.md](references/scoping.md) and [references/extraction.md](references/extraction.md) to decide which new seams are meaningful and when to stop descending.
 
-5. Materialize the chosen boundaries with local implementation rules.
-Use [references/materialization.md](references/materialization.md) and [references/conventions.md](references/conventions.md) to preserve dominant local conventions while keeping responsibilities, public seams, dependency direction, and orchestration shape clear inside each unit.
+7. Materialize the chosen boundaries with local implementation rules.
+Use [references/materialization.md](references/materialization.md) and [references/conventions.md](references/conventions.md) to preserve or deliberately improve conventions while keeping responsibilities, public seams, dependency direction, and orchestration shape clear inside each unit.
 
-6. Decide how much validation the change needs.
-Use [references/validation.md](references/validation.md) to match validation depth to blast radius and change kind.
+8. Decide how much validation the change needs.
+Use [references/validation.md](references/validation.md) to match validation depth to the selected horizon, blast radius, and change kind.
 
-7. Escalate when the next correct step is not safe to guess.
-Use [references/escalation.md](references/escalation.md) when the change would alter public contracts, widen ownership, standardize a mixed area, or otherwise create lasting consequences beyond the immediate request.
+9. Escalate when the next correct step is not safe to guess.
+Use [references/escalation.md](references/escalation.md) when the change would alter public contracts, widen ownership beyond the selected horizon, standardize an unclear area, or otherwise create lasting consequences that remain unresolved.
 
 ## Working Rules
 
+- Choose the solution horizon before letting narrow change-kind defaults constrain the design.
+- Use `contained`, `structural`, and `foundational` consistently for solution horizons.
+- Choose the smallest correct change within the selected horizon, not necessarily the smallest possible intervention.
+- Do not omit a credible deeper option merely because a contained fix can satisfy the immediate request.
+- Require repository evidence for structural and foundational options; do not use the decision gate to advertise unrelated cleanup.
+- Treat a deliberate convention-setting change as legitimate structural work when the missing or harmful convention contributes to the problem.
 - Choose one `primary change kind` for the current task.
 - Add `secondary change kinds` only when they materially affect scope, extraction, or validation.
 - Use the canonical change kinds consistently: `direct fix`, `local refactor`, `boundary extraction`, `cross-cutting refactor`, and `new feature slice`.
 - Use the canonical extraction outcomes consistently: `inline`, `local helper`, `local module`, and `boundary`.
-- Prefer the smallest correct change.
-- Preserve the dominant convention in the touched area before considering wider normalization.
-- Preserve acceptable local stack patterns before introducing a technically cleaner alternative.
+- Preserve the dominant convention in a contained change; improve it deliberately only when the selected horizon includes that work.
 - Re-run the full workflow at each meaningful boundary introduced by the task until [Change Scoping Policy](references/scoping.md) says the remaining work is straightforward local implementation.
 - Do not stop at top-level architecture when the task includes scaffolding, package design, or other structural materialization.
 - Materialize each unit with the simplest structure that keeps responsibility, public seams, and dependency direction clear.
 - Separate pure local logic from orchestration when mixing them would obscure the unit's main responsibility.
 - Shared abstractions must be earned by real reuse or clearly broader ownership.
-- Prefer local ownership first after extraction before promoting code into broader shared scope.
-- Keep contract surfaces as narrow as the request allows.
+- Prefer local ownership first after extraction unless the selected horizon and repository evidence justify broader ownership.
+- Keep contract surfaces no wider than the selected outcome requires.
 - Keep side effects at clear boundaries and prefer extracting pure local logic before sharing orchestration.
 - Use narrower framework or domain skills for technology-specific structure. Use this skill to govern change strategy, scope, extraction pressure, and validation depth.
 
-## Output Expectations
+## Communicating Decisions
 
-For a review, plan, or implementation proposal:
+Before implementation, communicate a scope choice only when materially different credible options exist and the user has not already chosen. For each option, state:
 
-- state the `primary change kind`
-- state any `secondary change kinds` only if they materially affect the plan
-- state the intended scope
-- state the extraction outcome
-- explain any contract-surface handling when relevant
-- explain any recursive boundary pass only when the task creates meaningful sub-boundaries
-- explain the materialization decision whenever the outcome is `local module` or `boundary`, or when local code shape, dependency direction, or orchestration separation materially affects the result
-- explain the convention decision
-- explain the planned validation depth
-- call out any escalation point or confirm that none is needed
+- the outcome it pursues
+- the affected surface
+- its durable upside
+- its cost, migration burden, or risk
 
-Use this response shape:
+Recommend one option and ask for one clear choice. Do not begin edits while this required choice is unresolved. Do not present a scope menu when only one option is credible.
 
-```text
-Primary change kind: ...
-Secondary change kinds: ...
-Scope: ...
-Extraction outcome: ...
-Contract note: ...
-[Recursive notes: ...]
-[Materialization note: ...]
-Convention decision: ...
-Validation: ...
-Escalation note: ...
-```
+For a review or plan, make the recommended horizon and meaningful alternatives visible before implementation details.
+
+For a completed implementation, lead with the outcome. Then state the selected horizon, consequential architecture or convention decisions, validation performed, and intentionally deferred opportunities. Mention change kind, extraction, contracts, or recursive boundary decisions only when they help the user understand the result. Do not emit a fixed field dump or empty labels.
 
 ## Reference Map
 
@@ -86,6 +81,7 @@ Use these references directly as needed:
 
 - [references/overview.md](references/overview.md)
 - [references/workflow.md](references/workflow.md)
+- [references/scope-options.md](references/scope-options.md)
 - [references/change-kinds.md](references/change-kinds.md)
 - [references/scoping.md](references/scoping.md)
 - [references/contract-changes.md](references/contract-changes.md)

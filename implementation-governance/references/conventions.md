@@ -2,7 +2,7 @@
 
 ## Default Rule
 
-Preserve the dominant convention in the touched area before considering wider normalization.
+Preserve the dominant convention in the touched area by default. Deliberately establish or correct a convention when a selected structural or foundational horizon includes that outcome.
 
 This skill does not define framework-specific layout or language-specific style rules. It governs how to react to conventions that already exist in the repo.
 
@@ -45,15 +45,28 @@ Treat a local stack pattern as materially harmful when one or more of these are 
 - it directly causes bugs or hidden behavior
 - it forces unclear ownership or responsibility mixing
 - it creates repeated churn, workaround code, or failed fixes in the same area
-- it blocks the requested change unless the surrounding structure changes
+- it blocks the selected outcome unless the surrounding structure changes
 
 If the local pattern is acceptable, align with it even when a different pattern would be cleaner in the abstract.
 
 If the local pattern is materially harmful:
 
-- do not silently introduce a new wider standard through a narrow task
+- surface convention repair as a structural or foundational scope option when it would address the diagnosed problem
 - keep the fix as local as possible when that resolves the immediate problem
-- escalate when correcting the pattern would widen scope, set precedent, or standardize a mixed area
+- after the wider option is selected, apply the convention across its complete coherent surface
+- escalate when the convention or affected ownership remains unclear
+
+## Convention-Setting Changes
+
+Treat a convention-setting change as deliberate implementation work, not opportunistic cleanup, when the selected horizon includes it and repository evidence shows that the missing, mixed, or harmful convention contributes to the problem.
+
+When establishing a convention:
+
+- name the problem the convention resolves
+- choose the narrowest ownership level at which the convention is coherent
+- update the complete selected surface instead of leaving contradictory partial examples
+- reinforce the convention through types, tests, tooling, documentation, or a clear exemplar when proportionate
+- avoid presenting a local convention as repo-wide unless the foundational horizon genuinely covers the repository
 
 ## Mixed Or Unclear Areas
 
@@ -62,7 +75,8 @@ If the touched area is mixed or unclear:
 - preserve the highest-precedence level that is still clear
 - avoid standardizing adjacent code that is outside the request
 - use this skill's defaults when no dominant local pattern exists
-- escalate when choosing one pattern would set a wider precedent
+- surface a wider option when choosing one pattern would resolve the diagnosed problem
+- escalate when the user selected wider convention work but the correct precedent remains unclear
 
 ## Safe Defaults
 

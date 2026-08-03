@@ -1,4 +1,4 @@
 interface:
   display_name: "Implementation Governance"
-  short_description: "Govern scope, extraction, validation"
-  default_prompt: "Use $implementation-governance to choose change kind, scope, extraction, convention handling, escalation, and validation depth for a code change."
+  short_description: "Surface scope options and govern change"
+  default_prompt: "Use $implementation-governance to surface credible contained, structural, or foundational approaches, choose one, and govern the implementation."
