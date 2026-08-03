@@ -11,7 +11,7 @@ Treat public exports, interfaces, schemas, route shapes, event payloads, databas
 - Prefer additive changes before breaking changes.
 - Prefer compatibility shims before flag-day rewrites when existing consumers must continue to work.
 - Prefer internal adaptation layers before widening a shared contract.
-- Make only the contract change required by the request. Do not batch unrelated cleanup into the same step.
+- Make only the contract change required by the selected outcome. Do not batch unrelated cleanup into the same step.
 
 ## Safe Change Patterns
 

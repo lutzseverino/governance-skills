@@ -6,6 +6,8 @@ Validation depth must match blast radius.
 
 Meet the minimum relevant validation floor first, then add more coverage only when the actual risk requires it.
 
+Treat the selected solution horizon as part of the blast radius. A structural or foundational solution normally requires broader validation than a contained solution to the same immediate problem.
+
 ## Minimum Floors
 
 - If the touched owner already has automated validation, run the most relevant existing automated validation for that owner or state why it could not be run.
@@ -98,6 +100,8 @@ Prefer:
 - Add or update validation when the repo already supports it and the change would otherwise be weakly verified.
 - Do not widen a narrow change into a broad test rewrite unless the request or risk clearly requires it.
 - If credible automated validation is unavailable, use the best targeted static or manual validation available and state what remains unverified.
+- For a structural horizon, validate the repaired seam or convention and representative affected consumers.
+- For a foundational horizon, validate each migrated ownership or contract pattern and any compatibility path included in the selected scope.
 
 ## Common Errors
 

@@ -4,6 +4,8 @@
 
 Choose one `primary change kind` before making structural decisions. Add `secondary change kinds` only when they materially change scope, extraction pressure, or validation depth.
 
+Change kind describes the work being performed. Solution horizon describes how ambitious the chosen outcome is. A bug may be solved through a `contained`, `structural`, or `foundational` approach while remaining primarily a `direct fix`. Apply the defaults below inside the selected horizon; do not let a narrow change-kind default override an explicit scope choice.
+
 ## Allowed Change Kinds
 
 ### `direct fix`
@@ -12,8 +14,8 @@ Use when the goal is to correct a bug, typo, edge case, broken condition, incorr
 
 Defaults:
 
-- keep the scope as narrow as possible
-- preserve the current owner and existing structure unless that structure directly blocks the fix
+- in a `contained` horizon, keep the scope as narrow as possible
+- preserve the current owner and existing structure unless the selected horizon deliberately corrects a structural cause
 - prefer `inline` changes over extraction
 - validate the corrected path directly
 
@@ -23,7 +25,7 @@ Use when the goal is to improve clarity, naming, duplication, or internal struct
 
 Defaults:
 
-- keep the scope inside the current owner
+- in a `contained` horizon, keep the scope inside the current owner
 - prefer `local helper` or `local module` before broader extraction
 - preserve behavior
 - validate parity at the owner level
@@ -56,7 +58,7 @@ Use when the change introduces new behavior, not just a correction or internal c
 
 Defaults:
 
-- implement the narrowest complete slice that satisfies the request
+- implement the narrowest complete slice that fulfills the selected horizon
 - keep each concern with its nearest clear owner
 - extract only when the feature introduces a real local boundary or broader reuse
 - validate the new path directly and any touched contracts proportionately
