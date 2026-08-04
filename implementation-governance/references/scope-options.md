@@ -65,7 +65,7 @@ Present a scope choice before implementation when all of these are true:
 - the options differ materially in code health, future change cost, defect risk, affected surface, ownership, contracts, migration burden, validation, or architectural precedent
 - the user's requested horizon is not already clear
 
-Include only credible options; two are usually enough. For each option, state the pursued outcome, affected surface, diagnosed code-health condition it corrects or leaves in place, durable upside, cost or risk, and why acting now or deferring is reasonable. Recommend one and explain why.
+Include only credible options; two are usually enough. For each option, state the pursued outcome, affected surface, diagnosed code-health condition it corrects or leaves in place, durable upside, cost or risk, and why acting now or deferring is reasonable. When implementation shape materially affects the choice, use [Decision Preview Policy](./decision-previews.md) to make the difference tangible without sketching the full implementation. Recommend one and explain why.
 
 Wait for the user's selection before editing even when one option is clearly recommended. When the conditions above hold, prefer opening the gate over silently choosing `contained`.
 

@@ -1,6 +1,6 @@
 ---
 name: implementation-governance
-description: Opinionated implementation governance for code changes across projects and languages. Use when implementing features, fixing bugs, refactoring, reviewing code, or planning a change and you need to diagnose immediate and deeper structural problems, weigh code-health outcomes, surface credible contained, structural, or foundational scope options, pause for user choice when quality tradeoffs materially differ, and decide change kind, extraction, ownership, convention handling, escalation, or validation depth.
+description: Opinionated implementation governance for code changes across projects and languages. Use when implementing features, fixing bugs, refactoring, reviewing code, or planning a change and you need to diagnose immediate and deeper structural problems, weigh code-health outcomes, surface credible contained, structural, or foundational scope options with concise decision previews, pause for user choice when quality tradeoffs materially differ, and decide change kind, extraction, ownership, convention handling, escalation, or validation depth.
 ---
 
 # Implementation Governance
@@ -13,7 +13,7 @@ Choose implementation scope deliberately, then make consistent implementation an
 Read [references/workflow.md](references/workflow.md) and [references/scope-options.md](references/scope-options.md) first. Inspect enough surrounding code, ownership, repetition, convention, and change friction to determine whether the immediate problem is isolated or evidence of a deeper code-health problem.
 
 2. Set the solution horizon before implementation.
-Use the canonical horizons `contained`, `structural`, and `foundational`. Honor an explicit user preference. Treat a task-connected, evidence-backed improvement in correctness, ownership, consistency, testability, or future change cost as a reason to surface a broader option when its durable benefit is material relative to its cost and risk. When a contained solution and a credible broader solution differ materially in long-term quality, recommend an option, explain the tradeoff, and wait for the user's choice before editing. A strong recommendation does not remove this decision gate. Treat delegation as explicit only when the user authorizes choosing the solution horizon, scope, or architecture; ordinary permission to implement, fix, proceed, or make the appropriate change is not scope delegation. If the user explicitly delegates that decision, choose and continue. If no broader option is supported by evidence, continue with `contained` without manufacturing a choice.
+Use the canonical horizons `contained`, `structural`, and `foundational`. Honor an explicit user preference. Treat a task-connected, evidence-backed improvement in correctness, ownership, consistency, testability, or future change cost as a reason to surface a broader option when its durable benefit is material relative to its cost and risk. When a contained solution and a credible broader solution differ materially in long-term quality, recommend an option, explain the tradeoff, and wait for the user's choice before editing. Use [references/decision-previews.md](references/decision-previews.md) to show the smallest consumer-oriented code or structural artifact that materially clarifies the difference. A strong recommendation does not remove this decision gate. Treat delegation as explicit only when the user authorizes choosing the solution horizon, scope, or architecture; ordinary permission to implement, fix, proceed, or make the appropriate change is not scope delegation. If the user explicitly delegates that decision, choose and continue. If no broader option is supported by evidence, continue with `contained` without manufacturing a choice.
 
 3. Identify what kind of change the selected horizon requires.
 Read [references/change-kinds.md](references/change-kinds.md) to classify the work with one `primary change kind` and any `secondary change kinds` that materially affect scope, extraction, or validation. Treat change kind and solution horizon as separate decisions.
@@ -46,6 +46,7 @@ Use [references/escalation.md](references/escalation.md) when the change would a
 - Bias toward opening the decision gate when a contained fix would preserve or add a diagnosed, material code-health problem that a credible broader option would correct.
 - Treat code health as task-connected decision evidence, not as a license for aesthetic cleanup or speculative abstraction.
 - Do not infer scope delegation from general implementation authority; require explicit authority to choose among materially different horizons.
+- Show implementation shape only when it improves the decision; prefer a consumer call site or owned seam over internal implementation detail.
 - Require repository evidence for structural and foundational options; do not use the decision gate to advertise unrelated cleanup.
 - Treat a deliberate convention-setting change as legitimate structural work when the missing or harmful convention contributes to the problem.
 - Choose one `primary change kind` for the current task.
@@ -73,10 +74,11 @@ Before implementation, communicate a scope choice only when materially different
 - its durable upside
 - its cost, migration burden, or risk
 - why acting now or deferring is reasonable
+- when implementation shape materially affects the choice, one compact decision preview using [Decision Preview Policy](references/decision-previews.md)
 
 Recommend one option and ask for one clear choice even when the recommendation is strong. Do not begin edits while this required choice is unresolved. Include only credible options, usually two; do not force all three horizons into a menu.
 
-For a review or plan, make the recommended horizon and meaningful alternatives visible before implementation details.
+For a review or plan, make the recommended horizon and meaningful alternatives visible before implementation details. After a horizon is selected, include one consolidated intended-shape preview when consumer usage, a boundary, contract, data shape, ownership, or flow is central to understanding the plan. Do not repeat every option.
 
 For a completed implementation, lead with the outcome. Then state the selected horizon, consequential architecture or convention decisions, validation performed, and intentionally deferred opportunities. Mention change kind, extraction, contracts, or recursive boundary decisions only when they help the user understand the result. Do not emit a fixed field dump or empty labels.
 
@@ -87,6 +89,7 @@ Use these references directly as needed:
 - [references/overview.md](references/overview.md)
 - [references/workflow.md](references/workflow.md)
 - [references/scope-options.md](references/scope-options.md)
+- [references/decision-previews.md](references/decision-previews.md)
 - [references/change-kinds.md](references/change-kinds.md)
 - [references/scoping.md](references/scoping.md)
 - [references/contract-changes.md](references/contract-changes.md)
