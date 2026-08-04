@@ -3,10 +3,10 @@
 ## Order Of Operations
 
 1. Diagnose the immediate request and inspect for a deeper problem.
-Inspect enough surrounding ownership, repetition, dependency direction, and convention to determine whether the problem is isolated or points to a credible structural or foundational opportunity. Do not edit yet when the solution horizon is unresolved.
+Inspect enough surrounding ownership, repetition, dependency direction, convention, testability, and change friction to determine whether the problem is isolated or points to a credible structural or foundational opportunity. Identify whether a contained solution would preserve or add a material code-health problem. Do not edit yet when the solution horizon is unresolved.
 
 2. Set the solution horizon.
-Use [Scope Options Policy](./scope-options.md) to choose `contained`, `structural`, or `foundational`. Honor an explicit user preference. When materially different credible options exist and the user has not selected one, present the options, recommend one, and wait before implementation.
+Use [Scope Options Policy](./scope-options.md) to choose `contained`, `structural`, or `foundational`. Honor an explicit user preference. When materially different credible options exist and the user has not selected one, present the options, make their code-health consequences visible, recommend one, and wait before implementation. Do not treat ordinary authority to implement as authority to choose among materially different horizons.
 
 3. Identify the change kind.
 Classify the work inside the selected horizon with one `primary change kind`: `direct fix`, `local refactor`, `boundary extraction`, `cross-cutting refactor`, or `new feature slice`. Add `secondary change kinds` only when they materially change scope, extraction, or validation.
@@ -57,7 +57,7 @@ Use [Change Scoping Policy](./scoping.md) as the canonical stop rule for when to
 When in doubt, follow this default sequence:
 
 1. inspect for both the immediate problem and credible deeper causes
-2. choose the solution horizon or open the decision gate
+2. determine whether a contained change would leave a material task-connected code-health problem, then choose the solution horizon or open the decision gate
 3. classify the change kind
 4. choose the smallest complete scope inside that horizon and make any contract surface explicit
 5. keep code `inline` unless clarity or ownership clearly improves with extraction
@@ -72,6 +72,8 @@ When in doubt, follow this default sequence:
 
 - widening a `direct fix` into unrelated cleanup
 - silently choosing a contained patch when the request exposes a credible deeper problem
+- treating general permission to implement as delegation to choose a materially different scope or quality outcome
+- skipping the decision gate because one credible option has a strong recommendation
 - presenting speculative cleanup as a foundational option
 - collapsing a selected structural or foundational outcome back into the smallest patch
 - forcing mixed work into one label and losing the real source of risk
