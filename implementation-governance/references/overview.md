@@ -22,7 +22,7 @@ Use [Workflow](./workflow.md) as the operational entry point when making a decis
 ## Scope Boundaries
 
 - Workflow defines the order of operations for a change.
-- Scope options policy defines how to detect credible deeper problems, choose a contained, structural, or foundational solution horizon, and pause for user selection when needed.
+- Scope options policy defines how to detect credible deeper problems, evaluate material code-health differences, choose a contained, structural, or foundational solution horizon, and pause for user selection when needed.
 - Change kind policy defines what kind of work is being performed and what defaults it carries.
 - Scoping policy defines how far the change should reach, how ownership levels are interpreted, and when broader ownership is justified.
 - Contract change policy defines how an approved contract-affecting change should be carried out safely.
@@ -36,7 +36,7 @@ Use [Workflow](./workflow.md) as the operational entry point when making a decis
 ## Decision Flow
 
 1. Start with [Workflow](./workflow.md) to follow the decision sequence.
-2. Use [Scope Options Policy](./scope-options.md) to choose the solution horizon or present credible alternatives before implementation.
+2. Use [Scope Options Policy](./scope-options.md) to evaluate code-health consequences, choose the solution horizon, or present credible alternatives before implementation.
 3. Use [Change Kind Policy](./change-kinds.md) to classify the work with one `primary change kind` and any `secondary change kinds` that materially affect the plan.
 4. Use [Change Scoping Policy](./scoping.md) to choose the smallest complete change inside the selected horizon, identify the correct owner level, and determine whether broader ownership is required.
 5. If the change affects a contract surface, use [Contract Change Policy](./contract-changes.md) after approval to choose the narrowest safe contract change.

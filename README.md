@@ -16,7 +16,7 @@
 
 ### [`implementation-governance`](./implementation-governance/)
 
-Opinionated implementation guidance for code changes across projects and languages. Use it to detect when a small request reveals a deeper problem, choose between contained, structural, and foundational approaches, and govern change kind, scope, extraction, ownership, conventions, escalation, and validation depth.
+Opinionated implementation guidance for code changes across projects and languages. Use it to detect when a small request reveals a deeper code-health problem, present materially different contained, structural, and foundational outcomes for user choice, and govern change kind, scope, extraction, ownership, conventions, escalation, and validation depth.
 
 <p>
     <a href="https://skills.sh/lutzseverino/governance-skills/implementation-governance">
@@ -116,7 +116,7 @@ skill's `references/` directory.
 
 ## Use
 
-Use `$implementation-governance` when you want an agent to inspect for both the immediate problem and credible deeper architectural or convention problems, surface materially different scope options before editing, and govern the selected implementation coherently.
+Use `$implementation-governance` when you want an agent to inspect both the immediate problem and task-connected code-health opportunities, surface materially different scope options for your choice before editing, and govern the selected implementation coherently.
 
 Use `$react-component-governance` independently when you need help deciding whether UI should stay inline or be extracted, whether a local request reveals a wider React architecture opportunity, what kind of component or non-component boundary should exist, and how extracted React code should be packaged and owned.
 
