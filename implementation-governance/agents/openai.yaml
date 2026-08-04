@@ -1,4 +1,4 @@
 interface:
   display_name: "Implementation Governance"
   short_description: "Compare scope with concise previews"
-  default_prompt: "Use $implementation-governance to compare credible scope options with concise consumer-oriented previews, pause for my choice when needed, and govern the selected implementation."
+  default_prompt: "Use $implementation-governance to compare credible scope options, include concise consumer-oriented previews when they materially clarify the choice, pause for my choice when needed, and govern the selected implementation."
