@@ -49,7 +49,7 @@ Defaults:
 
 - widen scope only as far as the repeated change actually reaches
 - do not standardize adjacent areas that are not required by the task
-- escalate when the refactor sets a wider precedent or changes a public contract
+- escalate only when a wider precedent or public-contract consequence falls outside the selected horizon or remains unresolved
 - use broader validation than a local refactor
 
 ### `new feature slice`

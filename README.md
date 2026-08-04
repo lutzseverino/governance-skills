@@ -104,8 +104,9 @@ Run the canonical local validation gate before opening a pull request:
 ```
 
 The gate validates skill package structure, metadata, internal Markdown links,
-and GitHub Actions workflows. Repository-wide contribution and pull-request
-rules are defined in [`CONTRIBUTING.md`](./CONTRIBUTING.md) and pinned through
+and GitHub Actions workflows, then runs its regression suite. Repository-wide
+contribution and pull-request rules are defined in
+[`CONTRIBUTING.md`](./CONTRIBUTING.md) and pinned through
 [`.repository-standards.json`](./.repository-standards.json).
 
 ## Documentation
