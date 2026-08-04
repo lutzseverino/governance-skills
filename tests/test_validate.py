@@ -58,7 +58,7 @@ class SkillMetadataTests(unittest.TestCase):
 
 
 class MarkdownDiscoveryTests(unittest.TestCase):
-    def test_includes_untracked_source_and_excludes_ignored_trees(self) -> None:
+    def test_discovers_only_present_nonignored_markdown(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             subprocess.run(
@@ -72,6 +72,7 @@ class MarkdownDiscoveryTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (root / "tracked.md").write_text("# Tracked\n", encoding="utf-8")
+            (root / "deleted.md").write_text("# Deleted\n", encoding="utf-8")
             (root / "docs").mkdir()
             (root / "docs" / "untracked.md").write_text(
                 "# Untracked source\n",
@@ -84,11 +85,12 @@ class MarkdownDiscoveryTests(unittest.TestCase):
                     encoding="utf-8",
                 )
             subprocess.run(
-                ["git", "add", ".gitignore", "tracked.md"],
+                ["git", "add", ".gitignore", "tracked.md", "deleted.md"],
                 cwd=root,
                 check=True,
                 capture_output=True,
             )
+            (root / "deleted.md").unlink()
 
             errors: list[str] = []
             discovered = VALIDATE.discover_markdown_files(root, errors)

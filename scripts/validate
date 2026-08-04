@@ -163,7 +163,8 @@ def discover_markdown_files(root: Path, errors: list[str]) -> list[Path]:
         errors.append(f"repository: could not enumerate Markdown files: {detail}")
         return []
 
-    return sorted(root / relative for relative in result.stdout.split("\0") if relative)
+    discovered = (root / relative for relative in result.stdout.split("\0") if relative)
+    return sorted(path for path in discovered if path.is_file())
 
 
 def validate_markdown_links(errors: list[str]) -> None:
