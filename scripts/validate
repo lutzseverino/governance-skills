@@ -15,6 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MARKDOWN_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 AGENT_FIELD = re.compile(r'^  ([a-z_]+): ("(?:[^"\\]|\\.)*")$')
+MAX_SKILL_NAME_LENGTH = 64
+MAX_SKILL_DESCRIPTION_LENGTH = 1024
 
 
 def validate_manifest(errors: list[str]) -> None:
@@ -118,20 +120,54 @@ def validate_skills(errors: list[str]) -> None:
         skill_name = fields["name"]
         if not SKILL_NAME.fullmatch(skill_name):
             errors.append(f"{skill_path.relative_to(ROOT)}: invalid skill name")
+        if len(skill_name) > MAX_SKILL_NAME_LENGTH:
+            errors.append(
+                f"{skill_path.relative_to(ROOT)}: skill name must not exceed "
+                f"{MAX_SKILL_NAME_LENGTH} characters"
+            )
         if skill_name != skill_dir.name:
             errors.append(
                 f"{skill_path.relative_to(ROOT)}: name must match directory "
                 f"{skill_dir.name!r}"
             )
-        if not fields["description"]:
+        description = fields["description"]
+        if not description:
             errors.append(f"{skill_path.relative_to(ROOT)}: description must not be empty")
+        elif len(description) > MAX_SKILL_DESCRIPTION_LENGTH:
+            errors.append(
+                f"{skill_path.relative_to(ROOT)}: description must not exceed "
+                f"{MAX_SKILL_DESCRIPTION_LENGTH} characters"
+            )
         validate_agent_metadata(skill_dir, skill_name, errors)
 
 
+def discover_markdown_files(root: Path, errors: list[str]) -> list[Path]:
+    result = subprocess.run(
+        [
+            "git",
+            "ls-files",
+            "--cached",
+            "--others",
+            "--exclude-standard",
+            "-z",
+            "--",
+            "*.md",
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode:
+        detail = result.stderr.strip() or "unknown git error"
+        errors.append(f"repository: could not enumerate Markdown files: {detail}")
+        return []
+
+    return sorted(root / relative for relative in result.stdout.split("\0") if relative)
+
+
 def validate_markdown_links(errors: list[str]) -> None:
-    for markdown in sorted(ROOT.rglob("*.md")):
-        if ".git" in markdown.parts:
-            continue
+    for markdown in discover_markdown_files(ROOT, errors):
         text = markdown.read_text(encoding="utf-8")
         for raw_target in MARKDOWN_LINK.findall(text):
             target = raw_target.strip()
@@ -176,6 +212,23 @@ def main() -> int:
     )
     if workflow_check.returncode:
         return workflow_check.returncode
+
+    test_check = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            str(ROOT / "tests"),
+            "-p",
+            "test_*.py",
+        ],
+        cwd=ROOT,
+        check=False,
+    )
+    if test_check.returncode:
+        return test_check.returncode
 
     skill_count = len(list(ROOT.glob("*/SKILL.md")))
     print(f"Validation passed for {skill_count} skills.")
