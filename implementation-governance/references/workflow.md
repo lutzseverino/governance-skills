@@ -6,13 +6,13 @@
 Inspect enough surrounding ownership, repetition, dependency direction, convention, testability, and change friction to determine whether the problem is isolated or points to a credible structural or foundational opportunity. Identify whether a contained solution would preserve or add a material code-health problem. Do not edit yet when the solution horizon is unresolved.
 
 2. Set the solution horizon.
-Use [Scope Options Policy](./scope-options.md) to choose `contained`, `structural`, or `foundational`. Honor an explicit user preference. When materially different credible options exist and the user has not selected one, present the options, make their code-health consequences visible, recommend one, and wait before implementation. Do not treat ordinary authority to implement as authority to choose among materially different horizons.
+Use [Scope Options Policy](./scope-options.md) to choose `contained`, `structural`, or `foundational`. Honor an explicit user preference. When materially different credible options exist and the user has not selected one, present the options, make their code-health consequences visible, and use [Decision Preview Policy](./decision-previews.md) when a compact artifact would clarify their implementation shape. Recommend one and wait before implementation. Do not treat ordinary authority to implement as authority to choose among materially different horizons.
 
 3. Identify the change kind.
 Classify the work inside the selected horizon with one `primary change kind`: `direct fix`, `local refactor`, `boundary extraction`, `cross-cutting refactor`, or `new feature slice`. Add `secondary change kinds` only when they materially change scope, extraction, or validation.
 
 4. Choose the smallest correct scope inside the selected horizon.
-Decide what must change to fulfill the selected outcome and what should remain untouched. Do not widen the change with unrelated improvements, and do not collapse a selected structural or foundational outcome back into a contained patch. Make any contract surface touched by the change explicit. If the change affects a contract surface, escalate or confirm that broader consequence before applying the contract-change policy.
+Decide what must change to fulfill the selected outcome and what should remain untouched. Do not widen the change with unrelated improvements, and do not collapse a selected structural or foundational outcome back into a contained patch. Make any contract surface touched by the change explicit. When a plan would be clearer with a concrete shape, use [Decision Preview Policy](./decision-previews.md) to show one consolidated intended-shape preview for the selected horizon. If the change affects a contract surface, escalate or confirm that broader consequence before applying the contract-change policy.
 
 5. Choose the extraction outcome only after the scope is clear.
 Decide whether the change should stay `inline`, become a `local helper`, move into a `local module`, or become a `boundary`. After extraction, keep the boundary at the nearest ownership level first. Prefer extracting pure local logic before sharing code that carries side effects or orchestration.
@@ -74,6 +74,8 @@ When in doubt, follow this default sequence:
 - silently choosing a contained patch when the request exposes a credible deeper problem
 - treating general permission to implement as delegation to choose a materially different scope or quality outcome
 - skipping the decision gate because one credible option has a strong recommendation
+- describing an architectural option without showing its consumer or boundary shape when a compact preview would clarify the decision
+- flooding a scope choice with implementation bodies, boilerplate, or repeated snippets
 - presenting speculative cleanup as a foundational option
 - collapsing a selected structural or foundational outcome back into the smallest patch
 - forcing mixed work into one label and losing the real source of risk

@@ -1,4 +1,4 @@
 interface:
   display_name: "Implementation Governance"
-  short_description: "Surface code-health scope choices"
-  default_prompt: "Use $implementation-governance to inspect code health, surface credible contained, structural, or foundational options, and pause for my choice when quality outcomes materially differ."
+  short_description: "Compare scope with concise previews"
+  default_prompt: "Use $implementation-governance to compare credible scope options, include concise consumer-oriented previews when they materially clarify the choice, pause for my choice when needed, and govern the selected implementation."
